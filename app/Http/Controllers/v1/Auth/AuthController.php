@@ -19,13 +19,13 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): Response|Application|ResponseFactory
     {
         $cleanData = $request->validated();
-
         $user = User::create([
             'username' => $cleanData['username'],
             'email' => $cleanData['email'],
+            'password' => bcrypt($cleanData['password']),
             'first_name' => $cleanData['first_name'],
             'last_name' => $cleanData['last_name'],
-            'sex' => $cleanData['sex'],
+            'sex' => $cleanData['sex'] == 'MALE' ? true : false,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
