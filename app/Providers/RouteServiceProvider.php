@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->name('api.')
                 ->group(function () {
                     Route::namespace($this->namespace)->group(base_path('routes/api.php'));
-                    Route::namespace($this->namespace)->group(base_path('routes/Api/*.php'));
+                    Route::namespace($this->namespace)->group(base_path('routes/Api/auth.php'));
                 });
 
             Route::middleware('web')
