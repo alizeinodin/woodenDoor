@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration {
             $table->string('code');
             $table->string('email');
             $table->string('verify');
-            $table->timestamp('expire_at');
+            $table->timestamp('expire_at')->default(Carbon::now()->addMinutes(15));
             $table->timestamps();
         });
     }
