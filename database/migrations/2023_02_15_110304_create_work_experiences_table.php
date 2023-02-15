@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -23,9 +24,15 @@ return new class extends Migration
             $table->boolean('working_status')->comment('#false : unemployed | #true : in work');
             $table->text('description')->nullable();
             $table->string('company_name', 50);
-
-            $table->primary(['id', 'employee_id']);
         });
+
+        /*
+         * Blueprint not support two index in
+         * primary key, so we define this
+         * property, in unprepared DB
+         */
+
+        DB::unprepared("ALTER TABLE `wooden_door`.`work_experiences` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`, `employee_id`)");
     }
 
     /**
