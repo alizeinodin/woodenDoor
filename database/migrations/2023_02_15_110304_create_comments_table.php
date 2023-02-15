@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->comment('');
-            $table->id();
+            $table->integer('id', true);
             $table->integer('post_id')->index('FK_CPostId');
             $table->integer('user_id')->index('FK_CUserId');
             $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : pending | #1 : ejected | #2 : published');
