@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('code');
             $table->string('email');
             $table->string('verify')->default('false');
-            $table->timestamp('expire_at')->default(Carbon::now()->addMinutes(15));
+            $table->timestamp('expires_at')->default(Carbon::now()->addMinutes(15));
             $table->timestamps();
         });
     }
