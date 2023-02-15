@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class VerificationCode extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'email',
+        'code'
+    ];
+
+    protected $hidden = [
+        'code'
+    ];
+
+    protected $casts = [
+        'expire_at' => 'datetime'
+    ];
 }
