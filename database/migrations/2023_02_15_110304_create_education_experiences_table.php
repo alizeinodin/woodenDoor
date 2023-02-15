@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -25,9 +25,16 @@ return new class extends Migration
             $table->boolean('study_status')->comment('#false : Graduated | #true : Studying');
             $table->string('image', 100)->nullable();
             $table->text('description')->nullable();
-
-            $table->primary(['id', 'employee_id']);
         });
+
+        /*
+         * Blueprint not support two index in
+         * primary key, so we define this
+         * property, in unprepared DB
+         */
+
+        DB::unprepared("ALTER TABLE `wooden_door`.`education_experiences` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` , `employee_id` )");
+
     }
 
     /**
