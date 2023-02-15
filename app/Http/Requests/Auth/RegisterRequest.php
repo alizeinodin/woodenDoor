@@ -12,7 +12,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
         return [
             'username' => 'required|unique:users|min:3|max:50',
             'email' => 'required|unique:users|email|max:50',
+            'password' => 'required|string',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'sex' => 'required|in:MALE,FEMALE',
