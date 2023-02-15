@@ -8,13 +8,23 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    /**
+     * test sign up user
+     */
+    public function test_user_register(): void
+    {
+        $request = [
+            'username' => 'test',
+            'email' => 'email@gmail.com',
+            'password' => 'password',
+            'first_name' => 'name',
+            'last_name' => 'last_name',
+            'sex' => 'MALE'
+        ];
+        $response = $this->postJson(route('api.auth.register'), $request);
+
+        $response->assertCreated();
     }
 }
