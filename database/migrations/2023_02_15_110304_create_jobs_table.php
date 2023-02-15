@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('salary')->nullable();
             $table->boolean('status')->nullable()->default(true)->comment('#true: active | #false: fired');
             $table->timestamp('start_time')->useCurrent();
-            $table->timestamp('end_time')->default('0000-00-00 00:00:00');
+            $table->timestamp('end_time')->nullable();
 
             $table->index(['job_offers_id', 'job_offers_job_ad_id', 'job_offers_employee_id'], 'FK_JobOffersId');
         });
