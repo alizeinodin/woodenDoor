@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
@@ -35,6 +36,9 @@ class AuthController extends Controller
             'token' => $token,
             'token_type' => 'Barber',
         ];
+
+        $verifiable = VerificationCode::where('email', $cleanData['email'])->latest('id')->first();
+        $verifiable->delete();
 
         return response($response, ResponseHttp::HTTP_CREATED);
     }
