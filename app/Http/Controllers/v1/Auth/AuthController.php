@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\v1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class AuthController extends Controller
@@ -41,5 +44,34 @@ class AuthController extends Controller
         $verifiable->delete();
 
         return response($response, ResponseHttp::HTTP_CREATED);
+    }
+
+    /**
+     * login user with access token
+     *
+     * @param LoginRequest $request
+     * @return Response|Application|ResponseFactory
+     * @throws ValidationException
+     */
+    public function login(LoginRequest $request): Response|Application|ResponseFactory
+    {
+        $cleanData = $request->validated();
+
+        $user = User::where('email', $cleanData['email'])->latest('id')->first();
+
+        if (Auth::attempt(['email' => $cleanData['email'], 'password' => $cleanData['password']])) {
+
+            $response = [
+                'user' => $user,
+                'access_token' => $user->createToken('auth_token')->plainTextToken,
+                'token_type' => 'Bearer',
+            ];
+
+            return response($response, ResponseHttp::HTTP_OK);
+        }
+
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.']
+        ]);
     }
 }
