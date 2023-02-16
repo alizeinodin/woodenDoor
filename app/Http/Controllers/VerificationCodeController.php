@@ -17,7 +17,8 @@ use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 class VerificationCodeController extends Controller
 {
     /**
-     * send verification code to email of user
+     * send verification code
+     * to email of user
      *
      * @throws \Exception
      */
@@ -42,7 +43,8 @@ class VerificationCodeController extends Controller
     }
 
     /**
-     * verification by check code between email and user
+     * verification by check code
+     * between email and user
      *
      * @param VerifyRequest $request
      * @return Response|Application|ResponseFactory
