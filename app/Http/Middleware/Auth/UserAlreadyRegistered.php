@@ -17,9 +17,9 @@ class UserAlreadyRegistered
      *
      * @param Request $request
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     * @return Application|ResponseFactory|Response
+     * @return Application|ResponseFactory|Response|Closure
      */
-    public function handle(Request $request, Closure $next): Application|ResponseFactory|Response
+    public function handle(Request $request, Closure $next)
     {
         $user = User::where('email', $request['email'])->first();
 

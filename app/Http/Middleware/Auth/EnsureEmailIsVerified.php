@@ -16,15 +16,13 @@ class EnsureEmailIsVerified
     /**
      * Handle an incoming request.
      *
-     * @param SendRequest $request
+     * @param Request $request
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      * @return Application|ResponseFactory|Response
      */
-    public function handle(SendRequest $request, Closure $next): Application|ResponseFactory|Response
+    public function handle(Request $request, Closure $next)
     {
-        $cleanData = $request->validated();
-
-        $verifiable = VerificationCode::where('email', $cleanData['email'])->notExpired()->latest('id')->first();
+        $verifiable = VerificationCode::where('email', $request['email'])->notExpired()->latest('id')->first();
 
         if (is_null($verifiable)) {
             $response = [
