@@ -9,6 +9,9 @@ Route::name('verification_code.')->group(function () {
         Route::controller(VerificationCodeController::class)->group(function () {
             Route::post('/request', 'send')
                 ->name('send');
+
+            Route::post('/verify', 'verify')
+                ->name('verify');
         });
     });
 });
