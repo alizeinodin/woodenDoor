@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\VerifiactionCode;
+namespace App\Http\Requests\VerificationCode;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;

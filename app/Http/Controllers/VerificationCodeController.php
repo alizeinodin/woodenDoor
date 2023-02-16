@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VerifiactionCode\SendRequest;
+use App\Http\Requests\VerificationCode\SendRequest;
 use App\Mail\VerificationCodeMail;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,5 +37,10 @@ class VerificationCodeController extends Controller
         ];
 
         return response($response, ResponseHttp::HTTP_OK);
+    }
+
+    public function verify(VerifyRequest $request)
+    {
+
     }
 }
