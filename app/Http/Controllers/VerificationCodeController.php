@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\VerificationCodeStatus;
 use App\Http\Requests\VerificationCode\SendRequest;
+use App\Http\Requests\VerificationCode\VerifyRequest;
 use App\Mail\VerificationCodeMail;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
@@ -39,8 +41,43 @@ class VerificationCodeController extends Controller
         return response($response, ResponseHttp::HTTP_OK);
     }
 
-    public function verify(VerifyRequest $request)
+    /**
+     * verification by check code between email and user
+     *
+     * @param VerifyRequest $request
+     * @return Response|Application|ResponseFactory
+     */
+    public function verify(VerifyRequest $request): Response|Application|ResponseFactory
     {
+        $cleanData = $request->validated();
+
+        $verifiable = VerificationCode::where('email', $cleanData['email'])->notExpired()->latest('id')->first();
+
+        if (is_null($verifiable)) {
+            $response = [
+                'message' => 'No code has been sent to you or the code expired'
+            ];
+
+            return response($response, ResponseHttp::HTTP_NOT_FOUND);
+        }
+
+        if ($verifiable['code'] === $cleanData['code']) {
+            $verifiable->update([
+                'verify' => VerificationCodeStatus::confirmed
+            ]);
+
+            $response = [
+                'message' => 'Your email confirmed'
+            ];
+
+            return response($response, ResponseHttp::HTTP_OK);
+        } else {
+            $response = [
+                'message' => 'The entered code is incorrect'
+            ];
+
+            return response($response, ResponseHttp::HTTP_FORBIDDEN);
+        }
 
     }
 }
