@@ -13,7 +13,8 @@ class VerificationCode extends Model
 
     protected $fillable = [
         'email',
-        'code'
+        'code',
+        'verify'
     ];
 
     protected $hidden = [
