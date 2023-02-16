@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\VerificationCodeStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,8 @@ class VerificationCode extends Model
     ];
 
     protected $casts = [
-        'expires_at' => 'datetime'
+        'expires_at' => 'datetime',
+        'verify' => VerificationCodeStatus::class,
     ];
 
     /**
