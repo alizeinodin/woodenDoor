@@ -20,7 +20,7 @@ class VerificationCode extends Model
     ];
 
     protected $casts = [
-        'expire_at' => 'datetime'
+        'expires_at' => 'datetime'
     ];
 
     /**
