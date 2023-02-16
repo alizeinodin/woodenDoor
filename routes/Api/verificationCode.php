@@ -8,7 +8,8 @@ Route::name('verification_code.')->group(function () {
     Route::prefix('/verification_code')->group(function () {
         Route::controller(VerificationCodeController::class)->group(function () {
             Route::post('/request', 'send')
-                ->name('send');
+                ->name('send')
+                ->middleware('UserAlreadyRegistered');
 
             Route::post('/verify', 'verify')
                 ->name('verify');
