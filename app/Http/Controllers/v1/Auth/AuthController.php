@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -47,8 +48,6 @@ class AuthController extends Controller
     }
 
     /**
-     * login user with access token
-     *
      * @param LoginRequest $request
      * @return Response|Application|ResponseFactory
      * @throws ValidationException
@@ -73,5 +72,20 @@ class AuthController extends Controller
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.']
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return Response|Application|ResponseFactory
+     */
+    public function logout(Request $request): Response|Application|ResponseFactory
+    {
+        $request->user()->tokens()->delete(); // logout from all devices
+
+        $response = [
+            'message' => 'You have successfully logged out!',
+        ];
+
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
     }
 }
