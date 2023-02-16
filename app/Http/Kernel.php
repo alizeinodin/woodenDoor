@@ -43,6 +43,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'registration.allow' => [
+            \App\Http\Middleware\Auth\UserAlreadyRegistered::class,
+            \App\Http\Middleware\Auth\EnsureEmailIsVerified::class,
+        ],
     ];
 
     /**
@@ -62,7 +66,7 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+//        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'UserAlreadyRegistered' => \App\Http\Middleware\Auth\UserAlreadyRegistered::class,
     ];
 }
