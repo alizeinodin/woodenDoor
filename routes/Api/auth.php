@@ -12,5 +12,8 @@ Route::name('auth.')->group(function () {
 
         Route::post('/sign-in', 'login')
             ->name('login');
+
+        Route::get('/logout', 'logout')
+            ->name('logout');
     });
 });
