@@ -3,11 +3,15 @@
 namespace Tests\Feature;
 
 use App\Enum\VerificationCodeStatus;
+use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use function Faker\Provider\pt_BR\check_digit;
 
 class AuthTest extends TestCase
 {
@@ -108,5 +112,20 @@ class AuthTest extends TestCase
         $response->assertOk();
 
         $this->assertAuthenticated();
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function test_logout_user()
+    {
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $this->assertAuthenticated();
+
+        $response = $this->getJson(route('api.auth.logout'));
+        $response->assertStatus(204);
+
     }
 }
