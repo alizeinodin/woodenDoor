@@ -9,5 +9,8 @@ Route::name('auth.')->group(function () {
         Route::post('/sign-up', 'register')
             ->name('register')
             ->middleware('registration.allow');
+
+        Route::post('/sign-in', 'login')
+            ->name('login');
     });
 });
