@@ -13,7 +13,7 @@ Route::name('auth.')->group(function () {
         Route::post('/sign-in', 'login')
             ->name('login');
 
-        Route::get('/logout', 'logout')
+        Route::middleware('auth:sanctum')->get('/logout', 'logout')
             ->name('logout');
     });
 });
