@@ -37,6 +37,11 @@ class AuthController extends Controller
             'sex' => $cleanData['sex'] == 'MALE' ? true : false,
         ]);
 
+//        $cleanData['type'] ? $this->register_as_employee($cleanData, $user) : ;
+        if ($cleanData['type']) {
+            $this->register_as_employee($cleanData, $user);
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $response = [
@@ -97,9 +102,9 @@ class AuthController extends Controller
      *
      * @param array $cleanData
      * @param User $user
-     * @return User
+     * @return void
      */
-    private function register_as_employee(array $cleanData, User $user): User
+    private function register_as_employee(array $cleanData, User $user): void
     {
         $employee = Employee::create([
             'province' => $cleanData['province'],
@@ -114,6 +119,6 @@ class AuthController extends Controller
         $user->employee()->associate($employee);
         $user->save();
 
-        return $user->assignRole(self::EMPLOYEE_ROLE);
+        $user->assignRole(self::EMPLOYEE_ROLE);
     }
 }
