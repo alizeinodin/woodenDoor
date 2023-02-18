@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Response AS ResponseHttp;
+use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class UserAlreadyRegistered
 {
@@ -23,7 +23,14 @@ class UserAlreadyRegistered
     {
         $user = User::where('email', $request['email'])->first();
 
-        if (! is_null($user)){
+        if (!is_null($user)) {
+
+            if ($request->input('type') and is_null($user->employee())) {
+                return $next($request);
+            } else if (!$request->input('type') and is_null($user->employer())) {
+                return $next($request);
+            }
+
             $response = [
                 'message' => 'User already registered with this email',
             ];
