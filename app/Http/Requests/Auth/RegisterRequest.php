@@ -29,6 +29,13 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'sex' => 'required|in:MALE,FEMALE',
+            'province' => 'string|max:50',
+            'address' => 'string|max:200',
+            'about_me' => 'string|max200',
+            'min_salary' => 'numeric|min:0|max:9999999999',
+            'military_status' => 'in:0,1,2,3,4',
+            'job_position_title' => 'string|max:50',
+            'job_position_status' => 'in:0,1,2,3,4'
         ];
     }
 }
