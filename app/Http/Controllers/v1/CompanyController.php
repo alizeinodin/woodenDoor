@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Company\StoreRequest;
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class CompanyController extends Controller
 {
@@ -32,11 +36,19 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created company in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): Application|ResponseFactory|Response
     {
-        //
+        $cleanData = $request->validated();
+
+        $this->add_company($cleanData, $request->user());
+
+        $response = [
+            'message' => 'Your company added'
+        ];
+
+        return response($response, ResponseHttp::HTTP_CREATED);
     }
 
     /**
@@ -69,5 +81,23 @@ class CompanyController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         //
+    }
+
+    public function add_company(array $cleanData, User $user)
+    {
+        $company = new Company();
+
+        $company->persian_name = $cleanData['persian_name'];
+        $company->english_name = $cleanData['english_name'];
+        $company->logo_path = $cleanData['logo_path'] ?? null;
+        $company->tel = $cleanData['tel'] ?? null;
+        $company->address = $cleanData['address'] ?? null;
+        $company->website = $cleanData['website'] ?? null;
+        $company->about_company = $cleanData['about_company'] ?? null;
+        $company->nick_name = $cleanData['nick_name'];
+
+        $user->employer()->companies($company);
+        
+        $user->save();
     }
 }
