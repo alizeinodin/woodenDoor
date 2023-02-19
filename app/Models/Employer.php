@@ -11,9 +11,13 @@ class Employer extends Model
 {
     protected $table = 'employers';
 
+    protected $fillable = [
+        'score',
+    ];
+
     public function companies(): HasMany
     {
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class, 'employer_id', 'user_id');
     }
 
     /**
@@ -23,7 +27,7 @@ class Employer extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     use HasFactory;

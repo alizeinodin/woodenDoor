@@ -25,6 +25,6 @@ class Company extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'employer_id');
+        return $this->belongsTo(Employer::class, 'employer_id', 'user_id');
     }
 }
