@@ -32,7 +32,7 @@ class CompanyController extends Controller
      */
     public function my_companies(Request $request): mixed
     {
-        return $request->user()->employer()->companies()->paginate(15);
+        return $request->user()->employer->companies()->paginate(15);
     }
 
     /**
@@ -64,9 +64,7 @@ class CompanyController extends Controller
         $company->about_company = $cleanData['about_company'] ?? null;
         $company->nick_name = $cleanData['nick_name'];
 
-        $user->employer()->companies($company);
-
-        $user->save();
+        $user->employer->companies()->save($company);
     }
 
     /**
