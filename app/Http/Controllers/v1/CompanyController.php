@@ -19,9 +19,9 @@ class CompanyController extends Controller
      * Display a listing of the
      * companies 15 pagination
      */
-    public function index(): Response
+    public function index()
     {
-        return Company::all()->paginate(15);
+        return Company::paginate(15);
     }
 
     /**
