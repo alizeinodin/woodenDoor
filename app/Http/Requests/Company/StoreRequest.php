@@ -12,7 +12,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return !is_null($this->user()->employer());
+        return true;
     }
 
     /**
