@@ -18,8 +18,8 @@ use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class AuthController extends Controller
 {
-    private const EMPLOYEE_ROLE = 'employee';
-    private const EMPLOYER_ROLE = 'employer';
+    private const EMPLOYEE_ROLE = 'Employee';
+    private const EMPLOYER_ROLE = 'Employer';
 
     /**
      * @param RegisterRequest $request
@@ -106,19 +106,28 @@ class AuthController extends Controller
      */
     private function register_as_employee(array $cleanData, User $user): void
     {
-        $employee = Employee::create([
-            'province' => $cleanData['province'],
-            'address' => $cleanData['address'],
-            'about_me' => $cleanData['about_me'],
-            'min_salary' => $cleanData['min_salary'],
-            'military_status' => $cleanData['military_status'],
-            'job_position_title' => $cleanData['job_position_title'],
-            'job_position_status' => $cleanData['job_position_status'],
-        ]);
+//        $employee = Employee::create([
+//            'province' => $cleanData['province'] ?? null,
+//            'address' => $cleanData['address'] ?? null,
+//            'about_me' => $cleanData['about_me'] ?? null,
+//            'min_salary' => $cleanData['min_salary'] ?? null,
+//            'military_status' => $cleanData['military_status'] ?? null,
+//            'job_position_title' => $cleanData['job_position_title'] ?? null,
+//            'job_position_status' => $cleanData['job_position_status'] ?? null,
+//        ]);
+        $employee = new Employee();
 
-        $user->employee()->associate($employee);
+        $employee->province = $cleanData['province'] ?? null;
+        $employee->address = $cleanData['address'] ?? null;
+        $employee->about_me = $cleanData['about_me'] ?? null;
+        $employee->min_salary = $cleanData['min_salary'] ?? null;
+        $employee->military_status = $cleanData['military_status'] ?? null;
+        $employee->job_position_title = $cleanData['job_position_title'] ?? null;
+        $employee->job_position_status = $cleanData['job_position_status'] ?? null;
+
+        $user->employee($employee);
         $user->save();
 
-        $user->assignRole(self::EMPLOYEE_ROLE);
+        $user->syncRoles([self::EMPLOYEE_ROLE]);
     }
 }
