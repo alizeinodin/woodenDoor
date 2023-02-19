@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\StoreRequest;
+use App\Http\Requests\Company\UpdateRequest;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -61,11 +62,27 @@ class CompanyController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified company in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(UpdateRequest $request, Company $company): Response|Application|ResponseFactory
     {
-        //
+        $cleanData = $request->validated();
+
+        $company->update([
+            'persian_name' => $cleanData['persian_name'],
+            'english_name' => $cleanData['english_name'],
+            'logo_path' => $cleanData['logo_path'],
+            'tel' => $cleanData['tel'],
+            'address' => $cleanData['address'],
+            'website' => $cleanData['website'],
+            'about_company' => $cleanData['about_company'],
+        ]);
+
+        $response = [
+            'message' => 'Your company updated'
+        ];
+
+        return response($response, ResponseHttp::HTTP_OK);
     }
 
     /**
