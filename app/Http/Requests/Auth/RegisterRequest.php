@@ -29,6 +29,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'sex' => 'required|in:MALE,FEMALE',
+            'type' => 'required|boolean',
             'province' => 'string|max:50',
             'address' => 'string|max:200',
             'about_me' => 'string|max200',
