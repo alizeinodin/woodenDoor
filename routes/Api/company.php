@@ -9,7 +9,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(CompanyController::class)->group(function () {
 
             Route::prefix('/companies')->group(function () {
-                Route::get('/my-companies', 'my_companies')
+                Route::post('/my-companies', 'my_companies')
                     ->name('my_companies');
             });
 
