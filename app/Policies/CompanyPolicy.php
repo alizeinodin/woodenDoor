@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Http\Requests\Company\StoreRequest;
+use App\Http\Requests\Company\UpdateRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class CompanyPolicy
         return $request->user()->role == 'Employer';
     }
 
-    public function update(Request $request, Company $company): bool
+    public function update(UpdateRequest $request, Company $company): bool
     {
         return
             ($request->user()->role == 'Employer')
