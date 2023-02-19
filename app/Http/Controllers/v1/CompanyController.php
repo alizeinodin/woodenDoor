@@ -9,7 +9,6 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
@@ -52,6 +51,24 @@ class CompanyController extends Controller
         return response($response, ResponseHttp::HTTP_CREATED);
     }
 
+    public function add_company(array $cleanData, User $user)
+    {
+        $company = new Company();
+
+        $company->persian_name = $cleanData['persian_name'];
+        $company->english_name = $cleanData['english_name'];
+        $company->logo_path = $cleanData['logo_path'] ?? null;
+        $company->tel = $cleanData['tel'] ?? null;
+        $company->address = $cleanData['address'] ?? null;
+        $company->website = $cleanData['website'] ?? null;
+        $company->about_company = $cleanData['about_company'] ?? null;
+        $company->nick_name = $cleanData['nick_name'];
+
+        $user->employer()->companies($company);
+
+        $user->save();
+    }
+
     /**
      * Display the specified company.
      */
@@ -59,7 +76,6 @@ class CompanyController extends Controller
     {
         return Company::find($id);
     }
-
 
     /**
      * Update the specified company in storage.
@@ -86,28 +102,16 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified company from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(Company $company)
     {
-        //
-    }
+        $company->deleteOrFail();
 
-    public function add_company(array $cleanData, User $user)
-    {
-        $company = new Company();
+        $response = [
+            'message' => 'Your company deleted'
+        ];
 
-        $company->persian_name = $cleanData['persian_name'];
-        $company->english_name = $cleanData['english_name'];
-        $company->logo_path = $cleanData['logo_path'] ?? null;
-        $company->tel = $cleanData['tel'] ?? null;
-        $company->address = $cleanData['address'] ?? null;
-        $company->website = $cleanData['website'] ?? null;
-        $company->about_company = $cleanData['about_company'] ?? null;
-        $company->nick_name = $cleanData['nick_name'];
-
-        $user->employer()->companies($company);
-
-        $user->save();
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
     }
 }
