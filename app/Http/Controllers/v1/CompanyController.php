@@ -106,7 +106,13 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company): Response|Application|ResponseFactory
     {
-        $company->deleteOrFail();
+        if ($company->deleteOrFail() === false) {
+            $response = [
+                'message' => "Couldn't delete the company"
+            ];
+
+            return response($response, ResponseHttp::HTTP_BAD_REQUEST);
+        }
 
         $response = [
             'message' => 'Your company deleted'
