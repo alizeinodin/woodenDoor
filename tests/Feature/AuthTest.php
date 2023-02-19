@@ -6,21 +6,17 @@ use App\Enum\VerificationCodeStatus;
 use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
-use function Faker\Provider\pt_BR\check_digit;
 
 class AuthTest extends TestCase
 {
-    use LazilyRefreshDatabase;
+//    use LazilyRefreshDatabase;
 
     /**
      * test sign up user
      */
-    public function test_user_register(): void
+    public function test_register_as_employee(): void
     {
 
         $email = 'alizeinodin79@gmail.com';
@@ -51,11 +47,17 @@ class AuthTest extends TestCase
             'password' => 'password',
             'first_name' => 'name',
             'last_name' => 'last_name',
-            'sex' => 'MALE'
+            'sex' => 'MALE',
+            'type' => true, // register as employee
         ];
         $response = $this->postJson(route('api.auth.register'), $request);
 
         $response->assertCreated();
+
+        $user = User::where('email', $email)->latest('id')->first();
+
+        $this->assertTrue($user->hasRole('Employee'));
+
     }
 
     public function test_login_user()
