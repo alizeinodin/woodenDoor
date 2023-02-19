@@ -116,8 +116,7 @@ class AuthController extends Controller
         $employee->job_position_title = $cleanData['job_position_title'] ?? null;
         $employee->job_position_status = $cleanData['job_position_status'] ?? null;
 
-        $user->employee($employee);
-        $user->save();
+        $user->employee()->save($employee);
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
     }
