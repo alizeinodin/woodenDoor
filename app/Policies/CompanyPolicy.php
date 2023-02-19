@@ -2,15 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Http\Requests\Company\StoreRequest;
 
 class CompanyPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-    public function __construct()
+    public function create(StoreRequest $request): bool
     {
-        //
+        return $request->user()->role == 'Employer';
     }
 }
