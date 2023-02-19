@@ -106,15 +106,6 @@ class AuthController extends Controller
      */
     private function register_as_employee(array $cleanData, User $user): void
     {
-//        $employee = Employee::create([
-//            'province' => $cleanData['province'] ?? null,
-//            'address' => $cleanData['address'] ?? null,
-//            'about_me' => $cleanData['about_me'] ?? null,
-//            'min_salary' => $cleanData['min_salary'] ?? null,
-//            'military_status' => $cleanData['military_status'] ?? null,
-//            'job_position_title' => $cleanData['job_position_title'] ?? null,
-//            'job_position_status' => $cleanData['job_position_status'] ?? null,
-//        ]);
         $employee = new Employee();
 
         $employee->province = $cleanData['province'] ?? null;
