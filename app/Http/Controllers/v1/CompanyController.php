@@ -104,7 +104,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified company from storage.
      */
-    public function destroy(Company $company)
+    public function destroy(Company $company): Response|Application|ResponseFactory
     {
         $company->deleteOrFail();
 
