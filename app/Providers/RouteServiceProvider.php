@@ -34,6 +34,7 @@ class RouteServiceProvider extends ServiceProvider
                     Route::namespace($this->namespace)->group(base_path('routes/api.php'));
                     Route::namespace($this->namespace)->group(base_path('routes/Api/auth.php'));
                     Route::namespace($this->namespace)->group(base_path('routes/Api/verificationCode.php'));
+                    Route::namespace($this->namespace)->group(base_path('routes/Api/company.php'));
                 });
 
             Route::middleware('web')
