@@ -70,9 +70,9 @@ class CompanyController extends Controller
     /**
      * Display the specified company.
      */
-    public function show(string $id): Response
+    public function show(Company $company): Application|ResponseFactory|Response
     {
-        return Company::find($id);
+        return response($company, ResponseHttp::HTTP_OK);
     }
 
     /**
