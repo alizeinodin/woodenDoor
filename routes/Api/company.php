@@ -15,7 +15,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         });
     });
-    Route::resource('companies', CompanyController::class)
+    Route::resource('company', CompanyController::class)
         ->only([
             'index',
             'store',
