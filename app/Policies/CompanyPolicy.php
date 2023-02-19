@@ -21,4 +21,13 @@ class CompanyPolicy
             and
             (Company::where('employer_id', $request->user()->employer() == $company->employer()));
     }
+
+
+    public function delete(Request $request, Company $company): bool
+    {
+        return
+            ($request->user()->role == 'Employer')
+            and
+            (Company::where('employer_id', $request->user()->employer() == $company->employer()));
+    }
 }
