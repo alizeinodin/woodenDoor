@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,6 +18,18 @@ class CompanyController extends Controller
     public function index(): Response
     {
         return Company::all()->paginate(15);
+    }
+
+    /**
+     * Get the companies of a user which is an employer
+     *
+     * @param Request $request
+     * @param User $user
+     * @return mixed
+     */
+    public function my_companies(Request $request, User $user): mixed
+    {
+        return $user->employer()->companies()->paginate(15);
     }
 
     /**
