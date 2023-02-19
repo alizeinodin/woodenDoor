@@ -69,4 +69,28 @@ class CompanyTest extends TestCase
         $response = $this->postJson(route('api.company.store', $request));
         $response->assertCreated();
     }
+
+    public function test_show_company()
+    {
+        $user = User::factory()->create();
+
+        $employer = new Employer();
+        $employer->score = 10;
+
+        $employer->user()->associate($user);
+        $employer->save();
+
+        Sanctum::actingAs($user);
+
+        $company = new Company();
+        $company->persian_name = 'test3';
+        $company->english_name = 'test3';
+        $company->nick_name = '2test';
+
+        $user->employer->companies()->save($company);
+
+        $response = $this->getJson(route('api.company.show', ['company' => $company->id]));
+        $response->assertOk();
+
+    }
 }
