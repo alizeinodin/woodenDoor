@@ -24,20 +24,11 @@ class CompanyController extends Controller
      * Get the companies of a user which is an employer
      *
      * @param Request $request
-     * @param User $user
      * @return mixed
      */
-    public function my_companies(Request $request, User $user): mixed
+    public function my_companies(Request $request): mixed
     {
-        return $user->employer()->companies()->paginate(15);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
-    {
-        //
+        return $request->user()->employer()->companies()->paginate(15);
     }
 
     /**
