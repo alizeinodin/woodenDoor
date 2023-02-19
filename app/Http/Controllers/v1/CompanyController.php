@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -10,11 +11,12 @@ use Illuminate\Http\Response;
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the
+     * companies 15 pagination
      */
     public function index(): Response
     {
-        //
+        return Company::all()->paginate(15);
     }
 
     /**
