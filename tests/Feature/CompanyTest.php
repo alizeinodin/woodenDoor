@@ -5,11 +5,14 @@ namespace Tests\Feature;
 use App\Models\Company;
 use App\Models\Employer;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
+    use DatabaseTruncation;
+
     public function test_authorize_for_sanctum_user()
     {
         $response = $this->getJson(route('api.company.index'));
@@ -92,5 +95,37 @@ class CompanyTest extends TestCase
         $response = $this->getJson(route('api.company.show', ['company' => $company->id]));
         $response->assertOk();
 
+    }
+
+    public function test_update_company()
+    {
+        $user = User::factory()->create();
+
+        $employer = new Employer();
+        $employer->score = 10;
+
+        $employer->user()->associate($user);
+        $employer->save();
+
+        $company = new Company();
+        $company->persian_name = 'test1';
+        $company->english_name = 'test2';
+        $company->nick_name = 'test';
+
+        $user->employer->companies()->save($company);
+
+        Sanctum::actingAs($user);
+
+        $request = [
+            'persian_name' => 'farsi',
+            'english_name' => 'english',
+            'nick_name' => 'google',
+        ];
+
+        $response = $this->patchJson(route('api.company.update', ['company' => $company]), $request);
+        $response->assertOk();
+
+        $company = Company::find($company->id);
+        $this->assertEquals('google', $company->nick_name);
     }
 }
