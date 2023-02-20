@@ -44,7 +44,7 @@ class HasRoleForLogin
                 'message' => 'You are not registered'
             ];
 
-            return response($response, ResponseHttp::HTTP_UNAUTHORIZED);
+            return response($response, ResponseHttp::HTTP_FORBIDDEN);
         }
 
 
