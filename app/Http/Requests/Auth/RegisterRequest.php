@@ -30,7 +30,7 @@ class RegisterRequest extends FormRequest
             'last_name' => 'required|string',
             'sex' => 'required|in:MALE,FEMALE',
 
-            'type' => 'required|boolean',
+            'type' => 'required|in:true,false',
 
             'province' => 'string|max:50',
             'address' => 'string|max:200', // for employee or company's employer
@@ -43,7 +43,7 @@ class RegisterRequest extends FormRequest
             'persian_name' => 'required_if:type,false|string|max:50',
             'english_name' => 'required_if:type,false|string|max:50',
             'logo_path' => 'string',
-            'tel' => 'phone',
+            'tel' => 'numeric',
             'website' => 'string',
             'number_of_staff' => 'in:0,1,2,3,4,5',
             'about_company' => 'string',

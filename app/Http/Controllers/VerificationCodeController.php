@@ -9,7 +9,6 @@ use App\Mail\VerificationCodeMail;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;

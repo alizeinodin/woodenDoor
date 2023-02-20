@@ -25,9 +25,11 @@ class UserAlreadyRegistered
 
         if (!is_null($user)) {
 
-            if ($request->input('type') and is_null($user->employee())) {
+            $type = $request->input('type') == 'true' ? true : false;
+
+            if ($type and is_null($user->employee)) {
                 return $next($request);
-            } else if (!$request->input('type') and is_null($user->employer())) {
+            } else if (!$type and is_null($user->employer)) {
                 return $next($request);
             }
 
