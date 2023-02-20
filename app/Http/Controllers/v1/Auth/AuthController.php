@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\v1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\v1\CompanyController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Employee;
+use App\Models\Employer;
 use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,10 +39,9 @@ class AuthController extends Controller
             'sex' => $cleanData['sex'] == 'MALE' ? true : false,
         ]);
 
-//        $cleanData['type'] ? $this->register_as_employee($cleanData, $user) : ;
-        if ($cleanData['type']) {
-            $this->register_as_employee($cleanData, $user);
-        }
+        $cleanData['type'] ?
+            $this->register_as_employee($cleanData, $user) :
+            $this->register_as_employer($cleanData, $user);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -119,5 +120,17 @@ class AuthController extends Controller
         $user->employee()->save($employee);
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
+    }
+
+    private function register_as_employer(array $cleanData, User $user)
+    {
+        $company = (new CompanyController())->add_company($cleanData, $user);
+
+        $employer = new Employer();
+
+        $employer->companies()->save($company);
+        $user->employer()->save($employer);
+
+        $user->syncRoles([self::EMPLOYER_ROLE]);
     }
 }
