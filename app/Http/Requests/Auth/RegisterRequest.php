@@ -29,14 +29,27 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'sex' => 'required|in:MALE,FEMALE',
+
             'type' => 'required|boolean',
+
             'province' => 'string|max:50',
             'address' => 'string|max:200',
             'about_me' => 'string|max200',
             'min_salary' => 'numeric|min:0|max:9999999999',
             'military_status' => 'in:0,1,2,3,4',
             'job_position_title' => 'string|max:50',
-            'job_position_status' => 'in:0,1,2,3,4'
+            'job_position_status' => 'in:0,1,2,3,4',
+
+            'persian_name' => 'required_if:type,false|string|max:50',
+            'english_name' => 'required_if:type,false|string|max:50',
+            'logo_path' => 'string',
+            'tel' => 'phone',
+            'address_company' => 'string',
+            'website' => 'string',
+            'number_of_staff' => 'in:0,1,2,3,4,5',
+            'about_company' => 'string',
+            'nick_name' => 'required_if:type,false|string|unique:companies',
+            'employer_id' => 'numeric'
         ];
     }
 }
