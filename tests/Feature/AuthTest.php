@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Enum\VerificationCodeStatus;
 use App\Models\User;
 use App\Models\VerificationCode;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-//    use LazilyRefreshDatabase;
+//    use RefreshDatabase;
 
     /**
      * test sign up user
@@ -58,6 +58,47 @@ class AuthTest extends TestCase
 
         $this->assertTrue($user->hasRole('Employee'));
 
+    }
+
+    public function test_register_as_employer()
+    {
+        $email = 'alizeinodin79@gmail.com';
+
+        $request = [
+            'email' => $email
+        ];
+
+        $response = $this->postJson(route('api.verification_code.send', $request));
+
+        $response->assertOk();
+
+        $code = VerificationCode::where('email', $email)->latest('id')->first()['code'];
+
+        $request['code'] = $code;
+
+        $response = $this->postJson(route('api.verification_code.verify', $request));
+
+        $response->assertOk();
+
+        $verifiable = VerificationCode::where('email', $email)->latest('id')->first();
+
+        $this->assertEquals(VerificationCodeStatus::confirmed, $verifiable['verify']);
+
+        $request = [
+            'username' => 'test',
+            'email' => $email,
+            'password' => 'password',
+            'first_name' => 'name',
+            'last_name' => 'last_name',
+            'sex' => 'MALE',
+            'type' => false, // register as employer
+            'persian_name' => 'sherkat',
+            'english_name' => 'company',
+            'nick_name' => 'yahoo',
+            'address' => 'iran tehran'
+        ];
+        $response = $this->postJson(route('api.auth.register'), $request);
+        $response->assertCreated();
     }
 
     public function test_login_user()
