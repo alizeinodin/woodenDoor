@@ -166,6 +166,74 @@ class AuthTest extends TestCase
         $this->assertAuthenticated();
     }
 
+
+    /**
+     * @throws \Throwable
+     */
+    public function test_login_user_as_employer()
+    {
+        /*
+         * register a user with
+         * email and verify
+         */
+        // --------------------------------------------
+
+        $email = 'alizeinodin79@gmail.com';
+        $password = 'password';
+
+        $request = [
+            'email' => $email
+        ];
+
+        $response = $this->postJson(route('api.verification_code.send', $request));
+
+        $response->assertOk();
+
+        $code = VerificationCode::where('email', $email)->latest('id')->first()['code'];
+
+        $request['code'] = $code;
+
+        $response = $this->postJson(route('api.verification_code.verify', $request));
+
+        $response->assertOk();
+
+        $verifiable = VerificationCode::where('email', $email)->latest('id')->first();
+
+        $this->assertEquals(VerificationCodeStatus::confirmed, $verifiable['verify']);
+
+        $request = [
+            'username' => 'test',
+            'email' => $email,
+            'password' => $password,
+            'first_name' => 'name',
+            'last_name' => 'last_name',
+            'sex' => 'MALE',
+            'type' => false, // register as employer
+            'persian_name' => 'sherkat',
+            'english_name' => 'company',
+            'nick_name' => 'yahoo',
+            'address' => 'iran tehran'
+        ];
+        $response = $this->postJson(route('api.auth.register'), $request);
+        $response->assertCreated();
+
+        // --------------------------------------------
+
+        $request = [
+            'email' => $email,
+            'password' => $password,
+            'type' => false,
+        ];
+
+        $response = $this->postJson(route('api.auth.login', $request));
+
+        $response->assertOk();
+
+        $this->assertAuthenticated();
+        $this->assertEquals('Employer', $response->decodeResponseJson()['role']);
+    }
+
+
     /**
      * @throws \Throwable
      */
