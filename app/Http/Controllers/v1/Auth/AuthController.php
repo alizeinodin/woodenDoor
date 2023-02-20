@@ -124,12 +124,11 @@ class AuthController extends Controller
 
     private function register_as_employer(array $cleanData, User $user)
     {
-        $company = (new CompanyController())->add_company($cleanData, $user);
-
         $employer = new Employer();
 
-        $employer->companies()->save($company);
         $user->employer()->save($employer);
+
+        $company = (new CompanyController())->add_company($cleanData, $user);
 
         $user->syncRoles([self::EMPLOYER_ROLE]);
     }
