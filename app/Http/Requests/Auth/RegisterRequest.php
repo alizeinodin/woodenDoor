@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
             'type' => 'required|boolean',
 
             'province' => 'string|max:50',
-            'address' => 'string|max:200',
+            'address' => 'string|max:200', // for employee or company's employer
             'about_me' => 'string|max200',
             'min_salary' => 'numeric|min:0|max:9999999999',
             'military_status' => 'in:0,1,2,3,4',
@@ -44,7 +44,6 @@ class RegisterRequest extends FormRequest
             'english_name' => 'required_if:type,false|string|max:50',
             'logo_path' => 'string',
             'tel' => 'phone',
-            'address_company' => 'string',
             'website' => 'string',
             'number_of_staff' => 'in:0,1,2,3,4,5',
             'about_company' => 'string',
