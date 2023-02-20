@@ -11,6 +11,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class CompanyController extends Controller
@@ -51,7 +53,7 @@ class CompanyController extends Controller
         return response($response, ResponseHttp::HTTP_CREATED);
     }
 
-    public function add_company(array $cleanData, User $user)
+    public function add_company(array $cleanData, User $user): Company
     {
         $company = new Company();
 
@@ -65,6 +67,8 @@ class CompanyController extends Controller
         $company->nick_name = $cleanData['nick_name'];
 
         $user->employer->companies()->save($company);
+
+        return $company;
     }
 
     /**
@@ -77,20 +81,17 @@ class CompanyController extends Controller
 
     /**
      * Update the specified company in storage.
+     * @throws ValidationException
      */
     public function update(UpdateRequest $request, Company $company): Response|Application|ResponseFactory
     {
-        $cleanData = $request->validated();
+        $validator = Validator::make($request->all(), $request->rules());
 
-        $company->update([
-            'persian_name' => $cleanData['persian_name'],
-            'english_name' => $cleanData['english_name'],
-            'logo_path' => $cleanData['logo_path'],
-            'tel' => $cleanData['tel'],
-            'address' => $cleanData['address'],
-            'website' => $cleanData['website'],
-            'about_company' => $cleanData['about_company'],
-        ]);
+        if ($validator->fails()) {
+            throw ValidationException::withMessages((array)$validator->errors());
+        }
+
+        $company->update($request->all());
 
         $response = [
             'message' => 'Your company updated'
