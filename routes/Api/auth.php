@@ -11,7 +11,8 @@ Route::name('auth.')->group(function () {
             ->middleware('registration.allow');
 
         Route::post('/sign-in', 'login')
-            ->name('login');
+            ->name('login')
+            ->middleware('login.permission');
 
         Route::middleware('auth:sanctum')->get('/logout', 'logout')
             ->name('logout');
