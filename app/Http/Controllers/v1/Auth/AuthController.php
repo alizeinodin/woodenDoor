@@ -70,10 +70,14 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $cleanData['email'], 'password' => $cleanData['password']])) {
 
+            $role = $cleanData['type'] ? self::EMPLOYEE_ROLE : self::EMPLOYER_ROLE;
+            $user->syncRoles([$role]);
+
             $response = [
                 'user' => $user,
                 'access_token' => $user->createToken('auth_token')->plainTextToken,
                 'token_type' => 'Bearer',
+                'role' => $role,
             ];
 
             return response($response, ResponseHttp::HTTP_OK);
