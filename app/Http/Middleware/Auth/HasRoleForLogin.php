@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class HasRoleForLogin
 {
-    private const EMPLOYEE_ROLE = 'Employee';
-    private const EMPLOYER_ROLE = 'Employer';
-
     /**
      * Handle an incoming request.
      *
