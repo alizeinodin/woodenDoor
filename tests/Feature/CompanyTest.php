@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Models\Company;
 use App\Models\Employer;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTruncation;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-    use DatabaseTruncation;
+    use RefreshDatabase;
 
     public function test_authorize_for_sanctum_user()
     {
@@ -127,5 +127,28 @@ class CompanyTest extends TestCase
 
         $company = Company::find($company->id);
         $this->assertEquals('google', $company->nick_name);
+    }
+
+    public function test_delete_company()
+    {
+        $user = User::factory()->create();
+
+        $employer = new Employer();
+        $employer->score = 10;
+
+        $employer->user()->associate($user);
+        $employer->save();
+
+        $company = new Company();
+        $company->persian_name = 'test1';
+        $company->english_name = 'test2';
+        $company->nick_name = 'test';
+
+        $user->employer->companies()->save($company);
+
+        Sanctum::actingAs($user);
+
+        $response = $this->deleteJson(route('api.company.destroy', ['company' => $company]));
+        $response->assertStatus(204);
     }
 }
