@@ -10,6 +10,8 @@ class JobAd extends Model
 {
     use HasFactory;
 
+    protected $table = 'job_ads';
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
