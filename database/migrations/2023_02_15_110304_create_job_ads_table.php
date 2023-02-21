@@ -28,6 +28,7 @@ return new class extends Migration
             $table->enum('military_status', ['0', '1', '2', '3'])->nullable()->comment('#0: end_of_service | #1: permanent exemption | #2: doing | #3: included');
             $table->boolean('sex')->nullable()->comment('#true: male | #false: female');
             $table->enum('status', ['0', '1', '2', '3'])->default('0')->comment('0: waiting | #1: active | #2: failed | #3: need correction');
+            $table->timestamps();
         });
     }
 
