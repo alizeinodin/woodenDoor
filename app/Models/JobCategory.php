@@ -20,4 +20,9 @@ class JobCategory extends Model
     {
         return $this->hasMany(JobAd::class, 'job_category_id', 'id');
     }
+
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class, 'employer_id', 'user_id');
+    }
 }

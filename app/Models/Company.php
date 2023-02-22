@@ -33,4 +33,9 @@ class Company extends Model
     {
         return $this->hasMany(JobAd::class);
     }
+
+    public function jobCategory(): BelongsTo
+    {
+        return $this->belongsTo(JobCategory::class, 'job_category_id', 'id');
+    }
 }
