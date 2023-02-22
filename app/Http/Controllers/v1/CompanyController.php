@@ -17,6 +17,12 @@ use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class CompanyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Company::class);
+    }
+
     /**
      * Display a listing of the
      * companies 15 pagination
