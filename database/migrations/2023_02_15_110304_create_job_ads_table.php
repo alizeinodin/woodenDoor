@@ -17,7 +17,7 @@ return new class extends Migration
             $table->comment('');
             $table->integer('id', true);
             $table->integer('company_id')->index('FK_CompanyId');
-            $table->integer('job_ad_category')->index('FK_JobCategory');
+//            $table->integer('job_ad_category')->index('FK_JobCategory');
             $table->string('title', 50);
             $table->string('province', 20);
             $table->enum('type_of_cooperation', ['0', '1', '2', '3'])->comment('#0: part time | #1: full time | #2: telecommuting | #3: project');

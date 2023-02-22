@@ -12,8 +12,22 @@ class JobAd extends Model
 
     protected $table = 'job_ads';
 
+    protected $fillable = [
+        'title',
+        'province',
+        'type_of_cooperation',
+        'company_id',
+        'min_salary',
+        'description',
+        'work_experience',
+        'min_education_degree',
+        'military_status',
+        'sex',
+        'status',
+    ];
+
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id', 'id');
+        return $this->belongsTo(Company::class);
     }
 }

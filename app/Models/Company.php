@@ -31,6 +31,6 @@ class Company extends Model
 
     public function jobads(): HasMany
     {
-        return $this->hasMany(JobAd::class, 'company_id', 'id');
+        return $this->hasMany(JobAd::class);
     }
 }
