@@ -21,7 +21,8 @@ class Company extends Model
         'number_of_staff',
         'about_company',
         'nick_name',
-        'employer_id'
+        'employer_id',
+        'job_category_id'
     ];
 
     public function employer(): BelongsTo
