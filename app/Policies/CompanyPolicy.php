@@ -19,7 +19,7 @@ class CompanyPolicy
         return
             ($request->user()->role == 'Employer')
             and
-            (Company::where('employer_id', $request->user()->employer() == $company->employer()));
+            ($request->user()->employer() == $company->employer());
     }
 
 
@@ -28,6 +28,6 @@ class CompanyPolicy
         return
             ($request->user()->role == 'Employer')
             and
-            (Company::where('employer_id', $request->user()->employer() == $company->employer()));
+            ($request->user()->employer() == $company->employer());
     }
 }
