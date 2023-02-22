@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Http\Requests\JobAd\StoreRequest;
 
 class JobAdPolicy
 {
@@ -12,5 +12,10 @@ class JobAdPolicy
     public function __construct()
     {
         //
+    }
+
+    public function create(StoreRequest $request): bool
+    {
+        return $request->user()->role == 'Employer';
     }
 }
