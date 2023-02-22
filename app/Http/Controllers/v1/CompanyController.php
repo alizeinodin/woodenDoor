@@ -65,6 +65,7 @@ class CompanyController extends Controller
         $company->website = $cleanData['website'] ?? null;
         $company->about_company = $cleanData['about_company'] ?? null;
         $company->nick_name = $cleanData['nick_name'];
+        $company->job_category_id = $cleanData['job_category_id'] ?? 1;
 
         $user->employer->companies()->save($company);
 
