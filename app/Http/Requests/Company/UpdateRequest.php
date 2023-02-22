@@ -32,7 +32,8 @@ class UpdateRequest extends FormRequest
             'number_of_staff' => 'in:0,1,2,3,4,5',
             'about_company' => 'string',
             'nick_name' => 'string|unique:companies',
-            'employer_id' => 'numeric'
+            'employer_id' => 'numeric|exists:employer,id',
+            'job_category_id' => 'numeric|exists:job_categories,id'
         ];
     }
 }
