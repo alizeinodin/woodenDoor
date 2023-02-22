@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class JobCategory extends Model
 {
     use HasFactory;
+
+    protected $table = 'job_categories';
+
+    protected $fillable = [
+        'name'
+    ];
 }
