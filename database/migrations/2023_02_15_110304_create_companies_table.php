@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('about_company')->nullable();
             $table->string('nick_name', 50)->unique('nick_name');
             $table->integer('employer_id')->index('FK_EmployerID');
+            $table->integer('job_category_id')->index('FK_JobCategoryCompany');
             $table->timestamps();
         });
     }
