@@ -57,7 +57,7 @@ class JobCategoryTest extends TestCase
         $jobCategory->name = $this->faker->name;
         $jobCategory->save();
 
-        $response = $this->getJson(route("api.$this->route_name.show", ['category' => $jobCategory->id]));
+        $response = $this->getJson(route("api.$this->route_name.show", ['job_category' => $jobCategory->id]));
         $response->assertOk();
 
     }
@@ -76,7 +76,7 @@ class JobCategoryTest extends TestCase
             'name' => 'title2',
         ];
 
-        $response = $this->patchJson(route("api.$this->route_name.update", ['category' => $jobCategory]), $request);
+        $response = $this->patchJson(route("api.$this->route_name.update", ['job_category' => $jobCategory]), $request);
         $response->assertOk();
 
         $jobCategory = JobCategory::find($jobCategory->id);
@@ -93,7 +93,7 @@ class JobCategoryTest extends TestCase
         $jobCategory->name = $this->faker->name;
         $jobCategory->save();
 
-        $response = $this->deleteJson(route("api.$this->route_name.destroy", ['category' => $jobCategory]));
+        $response = $this->deleteJson(route("api.$this->route_name.destroy", ['job_category' => $jobCategory]));
         $response->assertStatus(204);
     }
 
@@ -179,7 +179,7 @@ class JobCategoryTest extends TestCase
 
         $jobAd->company()->associate($company)->save();
 
-        $result = $this->getJson(route("api.$this->route_name.campanies", ['category' => $jobCategory]));
+        $result = $this->getJson(route("api.$this->route_name.companies", ['category' => $jobCategory]));
         $result->assertOk();
 
         $data = $result->decodeResponseJson()['data'][0];
