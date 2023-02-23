@@ -58,4 +58,26 @@ class JobCategoryTest extends TestCase
         $response->assertOk();
 
     }
+
+    public function test_update_job_category()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $jobCategory = new JobCategory();
+        $jobCategory->name = $this->faker->name;
+        $jobCategory->save();
+
+        $request = [
+            'name' => 'title2',
+        ];
+
+        $response = $this->patchJson(route("api.$this->route_name.update", ['category' => $jobCategory]), $request);
+        $response->assertOk();
+
+        $jobCategory = JobCategory::find($jobCategory->id);
+        $this->assertEquals('title2', $jobCategory->title);
+    }
+
 }
