@@ -55,7 +55,7 @@ class JobAdController extends Controller
         $jobAd->min_education_degree = $cleanData['min_education_degree'] ?? null;
         $jobAd->military_status = $cleanData['military_status'] ?? null;
         $jobAd->sex = $cleanData['sex'] ?? null;
-//        $jobAd->job_ad_category = $cleanData['job_ad_category'] ?? 1;
+        $jobAd->job_category_id = $cleanData['job_ad_category'] ?? 1;
 
         $jobAd->company()->associate($company)->save();
 
