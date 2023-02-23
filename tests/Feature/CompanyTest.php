@@ -5,13 +5,14 @@ namespace Tests\Feature;
 use App\Models\Company;
 use App\Models\Employer;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
+    use WithFaker;
 
     public const EMPLOYEE_ROLE = 'Employer';
 
@@ -51,9 +52,9 @@ class CompanyTest extends TestCase
         $employer->save();
 
         $company = new Company();
-        $company->persian_name = 'test1';
-        $company->english_name = 'test2';
-        $company->nick_name = 'test';
+        $company->persian_name = $this->faker->name;
+        $company->english_name = $this->faker->name;
+        $company->nick_name = $this->faker->userName;
 
         $user->employer->companies()->save($company);
 
@@ -79,9 +80,9 @@ class CompanyTest extends TestCase
         Sanctum::actingAs($user);
 
         $request = [
-            'persian_name' => 'sherkat',
-            'english_name' => 'company',
-            'nick_name' => 'companyTest',
+            'persian_name' => $this->faker->name,
+            'english_name' => $this->faker->name,
+            'nick_name' => $this->faker->userName,
         ];
 
         $response = $this->postJson(route('api.company.store', $request));
@@ -104,9 +105,9 @@ class CompanyTest extends TestCase
         Sanctum::actingAs($user);
 
         $company = new Company();
-        $company->persian_name = 'test3';
-        $company->english_name = 'test3';
-        $company->nick_name = '2test';
+        $company->persian_name = $this->faker->name;
+        $company->english_name = $this->faker->name;
+        $company->nick_name = $this->faker->userName;
 
         $user->employer->companies()->save($company);
 
@@ -128,9 +129,9 @@ class CompanyTest extends TestCase
         $employer->save();
 
         $company = new Company();
-        $company->persian_name = 'test1';
-        $company->english_name = 'test2';
-        $company->nick_name = 'test';
+        $company->persian_name = $this->faker->name;
+        $company->english_name = $this->faker->name;
+        $company->nick_name = $this->faker->userName;
 
         $user->employer->companies()->save($company);
 
@@ -162,9 +163,9 @@ class CompanyTest extends TestCase
         $employer->save();
 
         $company = new Company();
-        $company->persian_name = 'test1';
-        $company->english_name = 'test2';
-        $company->nick_name = 'test';
+        $company->persian_name = $this->faker->name;
+        $company->english_name = $this->faker->name;
+        $company->nick_name = $this->faker->userName;
 
         $user->employer->companies()->save($company);
 
