@@ -81,4 +81,24 @@ class JobCategoryController extends Controller
 
         return response($response, ResponseHttp::HTTP_OK);
     }
+
+    /**
+     * Remove the specified job ad from storage.
+     */
+    public function destroy(JobCategory $category): Response|Application|ResponseFactory
+    {
+        if ($category->deleteOrFail() === false) {
+            $response = [
+                'message' => "Couldn't delete the Job Category"
+            ];
+
+            return response($response, ResponseHttp::HTTP_BAD_REQUEST);
+        }
+
+        $response = [
+            'message' => 'Job Category deleted'
+        ];
+
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
+    }
 }
