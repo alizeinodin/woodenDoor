@@ -32,6 +32,7 @@ class StoreRequest extends FormRequest
             'min_education_degree' => 'in:0,1,2,3,4,5',
             'military_status' => 'in:0,1,2,3',
             'sex' => 'in:true,false',
+            'job_category_id' => 'numeric|exists:job_categories,id'
         ];
     }
 }
