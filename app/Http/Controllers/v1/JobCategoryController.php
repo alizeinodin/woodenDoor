@@ -27,4 +27,6 @@ class JobCategoryController extends Controller
         return $category->companies()->paginate(15);
     }
 
+
+
 }
