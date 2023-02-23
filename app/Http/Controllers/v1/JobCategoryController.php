@@ -56,16 +56,16 @@ class JobCategoryController extends Controller
     /**
      * Display the specified job category
      */
-    public function show(JobCategory $category): Application|ResponseFactory|Response
+    public function show(JobCategory $job_category): Application|ResponseFactory|Response
     {
-        return response($category, ResponseHttp::HTTP_OK);
+        return response($job_category, ResponseHttp::HTTP_OK);
     }
 
     /**
      * Update the specified Job ad in storage.
      * @throws ValidationException
      */
-    public function update(UpdateRequest $request, JobCategory $category): Response|Application|ResponseFactory
+    public function update(UpdateRequest $request, JobCategory $job_category): Response|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), $request->rules());
 
@@ -73,7 +73,7 @@ class JobCategoryController extends Controller
             throw ValidationException::withMessages((array)$validator->errors());
         }
 
-        $category->update($request->all());
+        $job_category->update($request->all());
 
         $response = [
             'message' => 'Job category updated',
@@ -85,9 +85,9 @@ class JobCategoryController extends Controller
     /**
      * Remove the specified job ad from storage.
      */
-    public function destroy(JobCategory $category): Response|Application|ResponseFactory
+    public function destroy(JobCategory $job_category): Response|Application|ResponseFactory
     {
-        if ($category->deleteOrFail() === false) {
+        if ($job_category->deleteOrFail() === false) {
             $response = [
                 'message' => "Couldn't delete the Job Category"
             ];
