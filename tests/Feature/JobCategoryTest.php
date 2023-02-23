@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\JobCategory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -41,5 +42,20 @@ class JobCategoryTest extends TestCase
 
         $response = $this->postJson(route("api.$this->route_name.store"), $request);
         $response->assertCreated();
+    }
+
+    public function test_show_job_category()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $jobCategory = new JobCategory();
+        $jobCategory->name = $this->faker->name;
+        $jobCategory->save();
+
+        $response = $this->getJson(route("api.$this->route_name.show", ['category' => $jobCategory->id]));
+        $response->assertOk();
+
     }
 }
