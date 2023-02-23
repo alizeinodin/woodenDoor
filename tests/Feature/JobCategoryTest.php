@@ -28,4 +28,18 @@ class JobCategoryTest extends TestCase
         $response = $this->getJson(route("api.$this->route_name.index"));
         $response->assertOk();
     }
+
+    public function test_store_job_category()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $request = [
+            'name' => $this->faker()->name,
+        ];
+
+        $response = $this->postJson(route("api.$this->route_name.store"), $request);
+        $response->assertCreated();
+    }
 }
