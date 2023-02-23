@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Company;
+use App\Models\Employer;
+use App\Models\JobAd;
 use App\Models\JobCategory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -92,6 +95,52 @@ class JobCategoryTest extends TestCase
 
         $response = $this->deleteJson(route("api.$this->route_name.destroy", ['category' => $jobCategory]));
         $response->assertStatus(204);
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function test_get_job_ads_of_job_categories()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $jobCategory = new JobCategory();
+        $jobCategory->name = $this->faker->name;
+        $jobCategory->save();
+
+
+        $employer = new Employer();
+        $employer->score = 10;
+
+        $employer->user()->associate($user);
+        $employer->save();
+
+        $company = new Company();
+        $company->persian_name = $this->faker->name;
+        $company->english_name = $this->faker->name;
+        $company->nick_name = $this->faker->userName;
+
+
+        $user->employer->companies()->save($company);
+
+        $jobAd = new JobAd();
+
+        $jobAd->title = $this->faker->name;
+        $jobAd->province = $this->faker->country;
+        $jobAd->description = $this->faker->text;
+        $jobAd->type_of_cooperation = '0';
+        $jobAd->job_category_id = $jobCategory->id;
+
+        $jobAd->company()->associate($company)->save();
+
+        $result = $this->getJson(route("api.$this->route_name.job_ads", ['category' => $jobCategory]));
+        $result->assertOk();
+
+        $data = $result->decodeResponseJson()['data'][0];
+
+        $this->assertEquals($jobAd->id, $data['id']);
     }
 
 }
