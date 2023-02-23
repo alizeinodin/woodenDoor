@@ -80,4 +80,18 @@ class JobCategoryTest extends TestCase
         $this->assertEquals('title2', $jobCategory->title);
     }
 
+    public function test_delete_job_category()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $jobCategory = new JobCategory();
+        $jobCategory->name = $this->faker->name;
+        $jobCategory->save();
+
+        $response = $this->deleteJson(route("api.$this->route_name.destroy", ['category' => $jobCategory]));
+        $response->assertStatus(204);
+    }
+
 }
