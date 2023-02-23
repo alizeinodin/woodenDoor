@@ -48,5 +48,11 @@ class JobCategoryController extends Controller
         return response($response, ResponseHttp::HTTP_CREATED);
     }
 
-
+    /**
+     * Display the specified job category
+     */
+    public function show(JobCategory $category): Application|ResponseFactory|Response
+    {
+        return response($category, ResponseHttp::HTTP_OK);
+    }
 }
