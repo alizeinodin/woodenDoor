@@ -11,6 +11,17 @@ class UploadController extends Controller
 
     public function storeImage(UploadedFile $file): bool|string
     {
-        return $file->store(self::IMAGE_DIR);
+        $path = $file->store(self::IMAGE_DIR);
+
+        if (!(bool)$path) {
+
+            $response = [
+                'message' => 'Error in upload image'
+            ];
+
+            return response($response, 422);
+        }
+
+        return $path;
     }
 }
