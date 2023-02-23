@@ -80,7 +80,7 @@ class JobCategoryTest extends TestCase
         $response->assertOk();
 
         $jobCategory = JobCategory::find($jobCategory->id);
-        $this->assertEquals('title2', $jobCategory->title);
+        $this->assertEquals('title2', $jobCategory->name);
     }
 
     public function test_delete_job_category()
