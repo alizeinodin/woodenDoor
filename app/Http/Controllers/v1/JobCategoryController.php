@@ -4,11 +4,14 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobCategory\StoreRequest;
+use App\Http\Requests\JobCategory\UpdateRequest;
 use App\Models\JobCategory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class JobCategoryController extends Controller
@@ -40,8 +43,10 @@ class JobCategoryController extends Controller
 
         $jobCategory->name = $cleanData['name'];
 
+        $jobCategory->save();
+
         $response = [
-            'message' => 'Your job category added',
+            'message' => 'job category added',
             'object' => $jobCategory,
         ];
 
@@ -54,5 +59,26 @@ class JobCategoryController extends Controller
     public function show(JobCategory $category): Application|ResponseFactory|Response
     {
         return response($category, ResponseHttp::HTTP_OK);
+    }
+
+    /**
+     * Update the specified Job ad in storage.
+     * @throws ValidationException
+     */
+    public function update(UpdateRequest $request, JobCategory $category): Response|Application|ResponseFactory
+    {
+        $validator = Validator::make($request->all(), $request->rules());
+
+        if ($validator->fails()) {
+            throw ValidationException::withMessages((array)$validator->errors());
+        }
+
+        $category->update($request->all());
+
+        $response = [
+            'message' => 'Job category updated',
+        ];
+
+        return response($response, ResponseHttp::HTTP_OK);
     }
 }
