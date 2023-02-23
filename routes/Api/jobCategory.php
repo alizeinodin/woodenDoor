@@ -1,12 +1,12 @@
 <?php
 
 
-use App\Models\JobCategory;
+use App\Http\Controllers\v1\JobCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::name('job_category.')->group(function () {
-        Route::controller(JobCategory::class)->group(function () {
+        Route::controller(JobCategoryController::class)->group(function () {
 
             Route::prefix('/job_category')->group(function () {
 
@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         });
     });
-    Route::resource('job_category', JobCategory::class)
+    Route::resource('job_category', JobCategoryController::class)
         ->only([
             'index',
             'store',
