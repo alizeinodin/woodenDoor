@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -22,7 +21,7 @@ return new class extends Migration
             $table->string('phone', 12);
             $table->text('description')->nullable();
             $table->string('resume', 100);
-            $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : unseen | #1 : pending | #2 : rejected, | #3 : accepted');
+            $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : pending | #1 : rejected, | #2 : accepted');
 
         });
 
