@@ -32,8 +32,8 @@ class PostCategoryController extends Controller
         $postCategory = new PostCategory();
 
         $postCategory->title = $cleanData['title'];
-        $postCategory->description = $cleanData['description'];
-        $postCategory->link = $cleanData['link'] ?? Str::slug($cleanData['link']);
+        $postCategory->description = $cleanData['description'] ?? null;
+        $postCategory->link = $cleanData['link'] ?? Str::slug($cleanData['title']);
 
         $postCategory->save();
 
