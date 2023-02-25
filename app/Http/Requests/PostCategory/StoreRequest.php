@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:50',
             'description' => 'string|max:200',
-            'link' => 'required|string|max:50',
+            'link' => 'string|max:50',
         ];
     }
 }
