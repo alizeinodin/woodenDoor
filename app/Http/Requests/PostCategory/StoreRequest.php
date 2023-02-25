@@ -22,9 +22,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|max:50',
+            'title' => 'required|string|max:50',
             'description' => 'string|max:200',
-            'link' => 'string|max:50',
+            'link' => 'required|string|max:50',
         ];
     }
 }
