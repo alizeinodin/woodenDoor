@@ -59,8 +59,8 @@ class CompanyController extends Controller
 
         $company->persian_name = $cleanData['persian_name'];
         $company->english_name = $cleanData['english_name'];
-        $company->logo_path = $cleanData['file'] ??
-            (new UploadController())->storeImage($cleanData['file']);
+        $company->logo_path = isset($cleanData['file']) ?
+            (new UploadController())->storeImage($cleanData['file']) : null;
         $company->tel = $cleanData['tel'] ?? null;
         $company->address = $cleanData['address'] ?? null;
         $company->website = $cleanData['website'] ?? null;
