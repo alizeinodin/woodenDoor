@@ -168,8 +168,8 @@ class AuthTest extends TestCase
          */
         // --------------------------------------------
 
-        $email = 'alizeinodin79@gmail.com';
-        $password = 'password';
+        $email = $this->faker()->email;
+        $password = $this->faker()->password;
 
         $request = [
             'email' => $email
@@ -192,13 +192,13 @@ class AuthTest extends TestCase
         $this->assertEquals(VerificationCodeStatus::confirmed, $verifiable['verify']);
 
         $request = [
-            'username' => 'test',
+            'username' => $this->faker()->userName,
             'email' => $email,
             'password' => $password,
             'first_name' => 'name',
             'last_name' => 'last_name',
             'sex' => 'MALE',
-            'type' => true, // register as employee
+            'type' => 'true', // register as employee
         ];
         $response = $this->postJson(route('api.auth.register'), $request);
         $response->assertCreated();
@@ -208,7 +208,7 @@ class AuthTest extends TestCase
         $request = [
             'email' => $email,
             'password' => $password,
-            'type' => false,
+            'type' => 'false',
         ];
 
         $response = $this->postJson(route('api.auth.login', $request));
