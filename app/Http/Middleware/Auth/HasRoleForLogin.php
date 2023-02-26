@@ -25,7 +25,7 @@ class HasRoleForLogin
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
-            'type' => 'required|bool',
+            'type' => 'required|in:true,false',
         ]);
 
         if ($validator->fails()) {
