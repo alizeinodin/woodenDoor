@@ -261,7 +261,7 @@ class AuthTest extends TestCase
             'type' => 'false', // register as employer
             'persian_name' => 'sherkat',
             'english_name' => 'company',
-            'nick_name' => 'yahoo',
+            'nick_name' => $this->faker()->userName,
             'address' => 'iran tehran'
         ];
         $response = $this->postJson(route('api.auth.register'), $request);
