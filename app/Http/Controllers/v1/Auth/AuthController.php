@@ -44,7 +44,7 @@ class AuthController extends Controller
         }
 
 
-        $type = $request->input('type') == 'true' ? true : false;
+        $type = $cleanData['type'] == 'true' ? true : false;
 
         $type ?
             $this->register_as_employee($cleanData, $user) :
@@ -75,9 +75,12 @@ class AuthController extends Controller
 
         $user = User::where('email', $cleanData['email'])->latest('id')->first();
 
+        $type = $cleanData['type'] == 'true' ? true : false;
+
+
         if (Auth::attempt(['email' => $cleanData['email'], 'password' => $cleanData['password']])) {
 
-            $role = $cleanData['type'] ? self::EMPLOYEE_ROLE : self::EMPLOYER_ROLE;
+            $role = $type ? self::EMPLOYEE_ROLE : self::EMPLOYER_ROLE;
             $user->syncRoles([$role]);
 
             $response = [
