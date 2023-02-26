@@ -32,7 +32,7 @@ class HasRoleForLogin
             throw ValidationException::withMessages((array)$validator->errors());
         }
         $email = $request->input('email');
-        $type = $request->input('type');
+        $type = $request->input('type') == 'true' ? true : false;
 
         $user = User::where('email', $email)->latest('id')->first();
 
