@@ -15,6 +15,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
@@ -26,6 +27,7 @@ class AuthController extends Controller
     /**
      * @param RegisterRequest $request
      * @return Response|Application|ResponseFactory
+     * @throws ValidationException
      */
     public function register(RegisterRequest $request): Response|Application|ResponseFactory
     {
@@ -33,6 +35,16 @@ class AuthController extends Controller
         $user = User::where('email', $cleanData['email'])->latest('id')->first();
 
         if (is_null($user)) {
+
+            $validator = Validator::make($cleanData, [
+                'username' => 'unique:users',
+                'email' => 'unique:users',
+            ]);
+
+            if ($validator->fails()) {
+                throw ValidationException::withMessages((array)$validator->errors());
+            }
+
             $user = User::create([
                 'username' => $cleanData['username'],
                 'email' => $cleanData['email'],
