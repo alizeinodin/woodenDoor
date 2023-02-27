@@ -298,4 +298,82 @@ class AuthTest extends TestCase
         $response->assertStatus(204);
 
     }
+
+    public function test_register_as_employee_for_user_which_register_as_employer()
+    {
+        $email = $this->faker()->email;
+
+        $request = [
+            'email' => $email
+        ];
+
+        $response = $this->postJson(route('api.verification_code.send', $request));
+
+        $response->assertOk();
+
+        $code = VerificationCode::where('email', $email)->latest('id')->first()['code'];
+
+        $request['code'] = $code;
+
+        $response = $this->postJson(route('api.verification_code.verify', $request));
+
+        $response->assertOk();
+
+        $verifiable = VerificationCode::where('email', $email)->latest('id')->first();
+
+        $this->assertEquals(VerificationCodeStatus::confirmed, $verifiable['verify']);
+
+        $request = [
+            'username' => $this->faker()->userName,
+            'email' => $email,
+            'password' => 'password',
+            'first_name' => 'name',
+            'last_name' => 'last_name',
+            'sex' => 'MALE',
+            'type' => 'false', // register as employer
+            'persian_name' => 'sherkat',
+            'english_name' => 'company',
+            'nick_name' => $this->faker()->userName,
+            'address' => 'iran tehran'
+        ];
+        $response = $this->postJson(route('api.auth.register'), $request);
+        $response->assertCreated();
+
+        $request = [
+            'email' => $email
+        ];
+
+        $response = $this->postJson(route('api.verification_code.send', $request));
+
+        $response->assertOk();
+
+        $code = VerificationCode::where('email', $email)->latest('id')->first()['code'];
+
+        $request['code'] = $code;
+
+        $response = $this->postJson(route('api.verification_code.verify', $request));
+
+        $response->assertOk();
+
+        $verifiable = VerificationCode::where('email', $email)->latest('id')->first();
+
+        $this->assertEquals(VerificationCodeStatus::confirmed, $verifiable['verify']);
+
+        $request = [
+            'username' => $this->faker()->userName,
+            'email' => $email,
+            'password' => 'password',
+            'first_name' => 'name',
+            'last_name' => 'last_name',
+            'sex' => 'MALE',
+            'type' => 'true', // register as employee
+        ];
+        $response = $this->postJson(route('api.auth.register', $request));
+
+        $response->assertCreated();
+
+        $user = User::where('email', $email)->latest('id')->first();
+
+        $this->assertTrue($user->hasRole('Employee'));
+    }
 }
