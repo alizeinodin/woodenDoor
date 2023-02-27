@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\v1\CompanyController;
+use App\Http\Controllers\v1\UploadController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Employee;
@@ -57,6 +58,9 @@ class AuthController extends Controller
 
 
         $type = $cleanData['type'] == 'true' ? true : false;
+
+        $cleanData['file'] = $request->input('file') !== null ?
+            (new UploadController())->storeImage($cleanData['file']) : null;
 
         $type ?
             $this->register_as_employee($cleanData, $user) :

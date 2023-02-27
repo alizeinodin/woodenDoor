@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -79,10 +80,13 @@ class CompanyTest extends TestCase
 
         Sanctum::actingAs($user);
 
+        $file = UploadedFile::fake();
+
         $request = [
             'persian_name' => $this->faker->name,
             'english_name' => $this->faker->name,
             'nick_name' => $this->faker->userName,
+            'file' => $file,
         ];
 
         $response = $this->postJson(route('api.company.store', $request));

@@ -44,6 +44,9 @@ class CompanyController extends Controller
     {
         $cleanData = $request->validated();
 
+        $cleanData['file'] = $request->input('file') !== null ?
+            (new UploadController())->storeImage($cleanData['file']) : null;
+
         $this->add_company($cleanData, $request->user());
 
         $response = [
@@ -59,8 +62,7 @@ class CompanyController extends Controller
 
         $company->persian_name = $cleanData['persian_name'];
         $company->english_name = $cleanData['english_name'];
-        $company->logo_path = isset($cleanData['file']) ?
-            (new UploadController())->storeImage($cleanData['file']) : null;
+        $company->logo_path = $cleanData['file'];
         $company->tel = $cleanData['tel'] ?? null;
         $company->address = $cleanData['address'] ?? null;
         $company->website = $cleanData['website'] ?? null;
