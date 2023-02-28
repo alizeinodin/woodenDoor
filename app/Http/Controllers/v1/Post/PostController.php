@@ -49,4 +49,9 @@ class PostController extends Controller
 
         return response($response, ResponseHttp::HTTP_CREATED);
     }
+
+    public function show(Post $post): Application|ResponseFactory|Response
+    {
+        return response($post, ResponseHttp::HTTP_OK);
+    }
 }
