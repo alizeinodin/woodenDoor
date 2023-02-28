@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\PostCategory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -32,5 +33,27 @@ class PostCategoryTest extends TestCase
 
         $response = $this->postJson(route("api.$this->route_name.store"), $request);
         $response->assertCreated();
+    }
+
+    public function test_update_post_category()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $postCategory = new PostCategory();
+        $postCategory->title = $this->faker->name;
+        $postCategory->link = $this->faker->url;
+        $postCategory->save();
+
+        $request = [
+            'title' => 'title2',
+        ];
+
+        $response = $this->patchJson(route("api.$this->route_name.update", ['post_category' => $postCategory]), $request);
+        $response->assertOk();
+
+        $postCategory = PostCategory::find($postCategory->id);
+        $this->assertEquals('title2', $postCategory->title);
     }
 }
