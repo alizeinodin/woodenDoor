@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->integer('id', true);
             $table->string('title', 50);
             $table->string('description', 200)->nullable();
-            $table->string('link', 50);
+            $table->string('link', 150);
             $table->timestamps();
         });
     }
