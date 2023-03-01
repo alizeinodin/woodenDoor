@@ -7,6 +7,7 @@ use App\Http\Controllers\v1\CompanyController;
 use App\Http\Controllers\v1\UploadController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\Author;
 use App\Models\Employee;
 use App\Models\Employer;
 use App\Models\User;
@@ -65,6 +66,10 @@ class AuthController extends Controller
         $type ?
             $this->register_as_employee($cleanData, $user) :
             $this->register_as_employer($cleanData, $user);
+
+        // create author for user
+        $author = new Author();
+        $author->user()->associate($user);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
