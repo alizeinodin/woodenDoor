@@ -29,8 +29,9 @@ class PostController extends Controller
     {
         $cleanData = $request->validated();
 
-        $comment_status = $request['comment_status'] == 'true' ? true : false;
-
+        if ($request->has('comment_status')) {
+            $request['comment_status'] = $request['comment_status'] == 'true' ? true : false;
+        }
         $post = new Post();
 
         $post->category_id = $cleanData['category_id'] ?? 1;
@@ -38,7 +39,7 @@ class PostController extends Controller
         $post->description = $cleanData['description'] ?? null;
         $post->content = $cleanData['content'] ?? null;
         $post->post_status = $cleanData['post_status'] ?? 3;
-        $post->comment_status = $cleanData['comment_status'] == null ? true : $comment_status;
+        $post->comment_status = $cleanData['comment_status'] ?? true;
         $post->score = $cleanData['score'] ?? 0;
         $post->uri = $cleanData['uri'] ?? Str::slug($request['title']);
         // store path of index image
