@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Author;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -32,6 +33,9 @@ class PostTest extends TestCase
     public function test_store_post()
     {
         $user = User::factory()->create();
+
+        $author = new Author();
+        $user->author()->save($author);
 
         Sanctum::actingAs($user);
 
