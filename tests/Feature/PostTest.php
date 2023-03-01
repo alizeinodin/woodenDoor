@@ -105,4 +105,27 @@ class PostTest extends TestCase
         $this->assertEquals($title, $post->title);
     }
 
+    public function test_delete_post()
+    {
+
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $response = $this->deleteJson(route("api.$this->route_name.destroy", ['post' => $post]));
+        $response->assertStatus(204);
+    }
+
 }
