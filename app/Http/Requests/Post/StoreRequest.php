@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'post_status' => 'in:0,1,2,3,4',
             'comment_status' => 'in:true,false',
             'score' => 'numeric',
-            'uri' => 'required|string|unique:posts|max:150',
+            'uri' => 'string|unique:posts|max:150',
             'index_image' => 'string',
             'category_id' => 'exists:categories, id',
         ];
