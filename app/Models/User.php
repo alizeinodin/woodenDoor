@@ -80,7 +80,7 @@ class User extends Authenticatable
      */
     public function author(): HasOne
     {
-        return $this->hasOne(Author::class, 'author_id', 'id');
+        return $this->hasOne(Author::class, 'user_id', 'id');
     }
 
     /**
