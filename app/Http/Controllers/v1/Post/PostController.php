@@ -44,7 +44,9 @@ class PostController extends Controller
         $post->uri = $cleanData['uri'] ?? Str::slug($request['title']);
         // store path of index image
 
-        $request->user()->posts()->save($post); // save post for user
+        $author = $request->user()->author;
+
+        $author->posts()->save($post); // save post for user
 
         $response = [
             'message' => 'Post added',
