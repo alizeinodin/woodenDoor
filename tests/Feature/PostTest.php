@@ -73,4 +73,36 @@ class PostTest extends TestCase
 
     }
 
+    public function test_update_post()
+    {
+
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $title = $this->faker()->title;
+
+        $request = [
+            'title' => $title,
+        ];
+
+        $response = $this->patchJson(route("api.$this->route_name.update", ['post' => $post]), $request);
+        $response->assertOk();
+
+        $post = Post::find($post->id);
+        $this->assertEquals($title, $post->title);
+    }
+
 }
