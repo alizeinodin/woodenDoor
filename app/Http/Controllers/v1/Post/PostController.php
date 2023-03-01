@@ -83,4 +83,24 @@ class PostController extends Controller
 
         return response($response, ResponseHttp::HTTP_OK);
     }
+
+    /**
+     * Remove the specified company from storage.
+     */
+    public function destroy(Post $post): Response|Application|ResponseFactory
+    {
+        if ($post->deleteOrFail() === false) {
+            $response = [
+                'message' => "Couldn't delete the post"
+            ];
+
+            return response($response, ResponseHttp::HTTP_BAD_REQUEST);
+        }
+
+        $response = [
+            'message' => 'The post deleted'
+        ];
+
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
+    }
 }
