@@ -29,4 +29,20 @@ class PostTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_store_post()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $request = [
+            'title' => $this->faker()->name,
+            'description' => $this->faker()->name,
+            'content' => $this->faker()->text,
+        ];
+
+        $response = $this->postJson(route("api.$this->route_name.store"), $request);
+        $response->assertCreated();
+    }
+
 }
