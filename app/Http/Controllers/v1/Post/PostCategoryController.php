@@ -7,6 +7,7 @@ use App\Http\Requests\PostCategory\StoreRequest;
 use App\Http\Requests\PostCategory\UpdateRequest;
 use App\Models\PostCategory;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,11 @@ class PostCategoryController extends Controller
     public function index()
     {
         return PostCategory::paginate(15);
+    }
+
+    public function show_posts(PostCategory $postCategory): LengthAwarePaginator
+    {
+        return $postCategory->posts()->paginate(15);
     }
 
     public function store(StoreRequest $request): Response|Application|ResponseFactory
