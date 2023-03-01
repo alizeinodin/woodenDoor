@@ -74,6 +74,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the author associated with the user
+     *
+     * @return HasOne
+     */
+    public function author(): HasOne
+    {
+        return $this->hasOne(Author::class, 'author_id', 'id');
+    }
+
+    /**
      * Get the posts associated with the user
      *
      * @return HasMany
