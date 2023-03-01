@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,7 +15,6 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->comment('');
             $table->integer('id', true);
-            $table->integer('post_number')->default(0);
             $table->string('nick_name', 20)->nullable()->unique('nick_name');
             $table->integer('score')->default(0);
             $table->text('about')->nullable();
