@@ -20,12 +20,8 @@ return new class extends Migration {
             $table->integer('user_id')->index('FK_CUserId');
             $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : pending | #1 : ejected | #2 : published');
             $table->text('content');
-            $table->integer('comment_id')->nullable();
-            $table->integer('comment_post_id')->nullable();
-            $table->integer('comment_user_id')->nullable();
+            $table->integer('comment_id')->index('Reply')->nullable();
             $table->timestamp('time')->useCurrent();
-
-            $table->index(['comment_id', 'comment_post_id', 'comment_user_id'], 'Reply');
         });
 
         /*
