@@ -82,4 +82,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Author::class, 'user_id', 'id');
     }
+
+    /**
+     * Get the comments of user
+     *
+     * @return HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
