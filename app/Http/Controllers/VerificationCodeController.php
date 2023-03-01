@@ -7,6 +7,7 @@ use App\Http\Requests\VerificationCode\SendRequest;
 use App\Http\Requests\VerificationCode\VerifyRequest;
 use App\Mail\VerificationCodeMail;
 use App\Models\VerificationCode;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
@@ -29,7 +30,8 @@ class VerificationCodeController extends Controller
 
         VerificationCode::create([
             'email' => $cleanData['email'],
-            'code' => $code
+            'code' => $code,
+            'expires_at' => Carbon::now()->addMinutes(30)->toDateTimeString(),
         ]);
 
         Mail::to($cleanData['email'])->send(new VerificationCodeMail($code));
