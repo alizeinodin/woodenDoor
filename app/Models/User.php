@@ -82,14 +82,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Author::class, 'user_id', 'id');
     }
-
-    /**
-     * Get the posts associated with the user
-     *
-     * @return HasMany
-     */
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class, 'author_id', 'id');
-    }
 }
