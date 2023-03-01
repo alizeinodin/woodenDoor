@@ -36,6 +36,14 @@ class HasRoleForLogin
 
         $user = User::where('email', $email)->latest('id')->first();
 
+        if ($user == null) {
+            $response = [
+                'message' => 'You are not registered'
+            ];
+
+            return response($response, ResponseHttp::HTTP_FORBIDDEN);
+        }
+
         $result = $type ? is_null($user->employee) : is_null($user->employer);
 
         if ($result) {
