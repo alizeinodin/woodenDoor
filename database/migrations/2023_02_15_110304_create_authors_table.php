@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('score')->default(0);
             $table->text('about')->nullable();
             $table->integer('user_id')->index('FK_AEmployeeId');
+            $table->timestamps();
         });
     }
 
