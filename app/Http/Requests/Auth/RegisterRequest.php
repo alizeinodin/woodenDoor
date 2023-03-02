@@ -34,7 +34,7 @@ class RegisterRequest extends FormRequest
 
             'province' => 'string|max:50',
             'address' => 'string|max:200', // for employee or company's employer
-            'about_me' => 'string|max200',
+            'about_me' => 'string|max:200',
             'min_salary' => 'numeric|min:0|max:9999999999',
             'military_status' => 'in:0,1,2,3,4',
             'job_position_title' => 'string|max:50',
