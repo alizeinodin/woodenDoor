@@ -2,19 +2,19 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use WithFaker;
 
-        $response->assertStatus(200);
+    protected string $route_name = 'post';
+
+
+    public function test_authorize_for_sanctum_user()
+    {
+        $response = $this->getJson(route("api.$this->route_name.index"));
+        $response->assertStatus(401);
     }
 }
