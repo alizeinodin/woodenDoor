@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -21,7 +20,7 @@ return new class extends Migration {
             $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : pending | #1 : ejected | #2 : published');
             $table->text('content');
             $table->integer('comment_id')->index('Reply')->nullable();
-            $table->timestamp('time')->useCurrent();
+            $table->timestamps();
         });
 
         /*
@@ -30,7 +29,7 @@ return new class extends Migration {
          * property, in unprepared DB
          */
 
-        DB::unprepared("ALTER TABLE `wooden_door`.`comments` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` , `post_id`, `user_id` )");
+//        DB::unprepared("ALTER TABLE `wooden_door`.`comments` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` , `post_id`, `user_id` )");
 
     }
 
