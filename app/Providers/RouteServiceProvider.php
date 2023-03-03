@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
                     Route::namespace($this->namespace)->group(base_path('routes/Api/jobCategory.php'));
                     Route::namespace($this->namespace)->group(base_path('routes/Api/postCategory.php'));
                     Route::namespace($this->namespace)->group(base_path('routes/Api/post.php'));
+                    Route::namespace($this->namespace)->group(base_path('routes/Api/comment.php'));
                 });
 
             Route::middleware('web')
