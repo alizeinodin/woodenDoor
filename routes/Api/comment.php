@@ -8,6 +8,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::name('comment.')->group(callback: function () {
         Route::controller(CommentController::class)->group(function () {
 
+            Route::prefix('/comments')->group(function () {
+
+                Route::post('/{post}', 'store')
+                    ->name('store');
+
+                Route::get('{post}', 'get_comments')
+                    ->name('comments');
+
+                Route::get('{comment}/children', 'get_children')
+                    ->name('replies');
+
+                Route::get('{comments}/parent', 'get_parent')
+                    ->name('parents');
+            });
+
         });
     });
     Route::resource('comment', CommentController::class)
