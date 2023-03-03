@@ -33,6 +33,11 @@ class CommentController extends Controller
         return $comment->children()->paginate(15);
     }
 
+    public function get_parent(Comment $comment): LengthAwarePaginator
+    {
+        return $comment->parent()->paginate(15);
+    }
+
     public function show(Comment $comment): Application|ResponseFactory|Response
     {
         return response($comment, ResponseHttp::HTTP_OK);
