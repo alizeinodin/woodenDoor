@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\StoreRequest;
+use App\Http\Requests\Comment\UpdateRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
@@ -11,6 +12,8 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class CommentController extends Controller
@@ -48,5 +51,22 @@ class CommentController extends Controller
         ];
 
         return response($response, ResponseHttp::HTTP_CREATED);
+    }
+
+    public function update(UpdateRequest $request, Comment $comment): Response|Application|ResponseFactory
+    {
+        $validator = Validator::make($request->all(), $request->rules());
+
+        if ($validator->fails()) {
+            throw ValidationException::withMessages((array)$validator->errors());
+        }
+
+        $comment->update($request->all());
+
+        $response = [
+            'message' => 'Your comment updated'
+        ];
+
+        return response($response, ResponseHttp::HTTP_OK);
     }
 }
