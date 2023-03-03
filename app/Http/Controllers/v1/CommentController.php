@@ -33,6 +33,11 @@ class CommentController extends Controller
         return response($comment, ResponseHttp::HTTP_OK);
     }
 
+    /**
+     * @param StoreRequest $request
+     * @param Post $post
+     * @return Response|Application|ResponseFactory
+     */
     public function store(StoreRequest $request, Post $post): Response|Application|ResponseFactory
     {
         $cleanData = $request->validated();
@@ -53,6 +58,12 @@ class CommentController extends Controller
         return response($response, ResponseHttp::HTTP_CREATED);
     }
 
+    /**
+     * @param UpdateRequest $request
+     * @param Comment $comment
+     * @return Response|Application|ResponseFactory
+     * @throws ValidationException
+     */
     public function update(UpdateRequest $request, Comment $comment): Response|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), $request->rules());
@@ -68,5 +79,25 @@ class CommentController extends Controller
         ];
 
         return response($response, ResponseHttp::HTTP_OK);
+    }
+
+    /**
+     * Remove the specified company from storage.
+     */
+    public function destroy(Comment $comment): Response|Application|ResponseFactory
+    {
+        if ($comment->deleteOrFail() === false) {
+            $response = [
+                'message' => "Couldn't delete the comment"
+            ];
+
+            return response($response, ResponseHttp::HTTP_BAD_REQUEST);
+        }
+
+        $response = [
+            'message' => 'The comment deleted'
+        ];
+
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
     }
 }
