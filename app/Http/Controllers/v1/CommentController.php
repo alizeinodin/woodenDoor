@@ -92,7 +92,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Remove the specified company from storage.
+     * Remove the specified comment from storage.
      */
     public function destroy(Comment $comment): Response|Application|ResponseFactory
     {
