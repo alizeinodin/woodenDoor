@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
@@ -16,5 +18,14 @@ class CommentTest extends TestCase
     {
         $response = $this->getJson(route("api.$this->route_name.index"));
         $response->assertStatus(401);
+    }
+
+    public function test_get_all_comments()
+    {
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $response = $this->getJson(route("api.$this->route_name.index"));
+        $response->assertOk();
     }
 }
