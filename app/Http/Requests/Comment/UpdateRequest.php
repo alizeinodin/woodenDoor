@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Comment;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -11,18 +12,21 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'post_id' => 'numeric|exists:posts,id',
+            'comment_id' => 'numeric|exists:comments,id',
+            'test' => 'string',
+            'status' => 'in:0,1,2'
         ];
     }
 }
