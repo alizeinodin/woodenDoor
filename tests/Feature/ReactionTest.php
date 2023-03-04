@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Author;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -26,5 +28,32 @@ class ReactionTest extends TestCase
         );
         $response = $this->getJson(route("api.$this->route_name.index"));
         $response->assertOk();
+    }
+
+    public function test_like_post()
+    {
+
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $request = [
+            'post_id' => $post->id,
+            'react' => 'like',
+        ];
+
+        $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
+        $response->assertCreated();
     }
 }
