@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
                 Route::get('{comment}/children', 'get_children')
                     ->name('replies');
 
-                Route::get('{comments}/parent', 'get_parent')
+                Route::get('{comment}/parent', 'get_parent')
                     ->name('parents');
             });
 
