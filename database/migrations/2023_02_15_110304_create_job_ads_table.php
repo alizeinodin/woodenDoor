@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->integer('company_id')->index('FK_CompanyId');
             $table->integer('job_category_id')->index('FK_JobCategory');
             $table->string('title', 50);
-            $table->string('province', 20);
+            $table->string('province', 80);
             $table->enum('type_of_cooperation', ['0', '1', '2', '3'])->comment('#0: part time | #1: full time | #2: telecommuting | #3: project');
             $table->decimal('min_salary', 10, 0)->nullable();
             $table->text('description');
