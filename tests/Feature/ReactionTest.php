@@ -165,6 +165,5 @@ class ReactionTest extends TestCase
         $this->assertEquals(Reaction::DISLIKE, $reaction->react);
         $this->assertEquals($likes, $post->likes);
         $this->assertEquals($dislikes + 1, $post->dislikes);
-
     }
 }
