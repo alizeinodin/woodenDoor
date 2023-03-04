@@ -55,6 +55,9 @@ class ReactionTest extends TestCase
             'react' => Reaction::LIKE,
         ];
 
+        $post = Post::find($post->id);
+        $likes = $post->likes;
+
         $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
         $response->assertCreated();
 
@@ -63,7 +66,10 @@ class ReactionTest extends TestCase
             'post_id' => $post->id,
         ])->first();
 
+        $post = Post::find($post->id);
+
         $this->assertEquals(Reaction::LIKE, $reaction->react);
+        $this->assertEquals($likes + 1, $post->likes);
     }
 
     public function test_dislike_post()
