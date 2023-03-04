@@ -45,7 +45,6 @@ class CommentController extends Controller
 
     /**
      * @param StoreRequest $request
-     * @param Post $post
      * @return Response|Application|ResponseFactory
      */
     public function store(StoreRequest $request): Response|Application|ResponseFactory
