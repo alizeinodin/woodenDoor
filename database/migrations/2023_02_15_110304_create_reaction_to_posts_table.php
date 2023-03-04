@@ -12,12 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('reaction', function (Blueprint $table) {
+        Schema::create('reaction_posts', function (Blueprint $table) {
             $table->comment('');
             $table->string('react');
             $table->integer('user_id')->index('FK_RUser');
             $table->integer('post_id')->index('FK_RPost');
-            $table->dateTime('time')->useCurrent();
+            $table->timestamps();
 
             $table->primary(['user_id', 'post_id']);
         });
