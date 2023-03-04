@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
         return [
             'post_id' => 'required|numeric|exists:posts,id',
             'comment_id' => 'numeric|exists:comments,id',
-            'test' => 'required|string'
+            'content' => 'required|string'
         ];
     }
 }
