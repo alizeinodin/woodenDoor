@@ -6,8 +6,10 @@ use App\Enum\Reaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReactionPost\DeleteReactRequest;
 use App\Http\Requests\ReactionPost\StoreRequest;
+use App\Models\Post;
 use App\Models\ReactionPost;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
@@ -62,5 +64,15 @@ class ReactionPostController extends Controller
         ];
 
         return response($response, ResponseHttp::HTTP_NO_CONTENT);
+    }
+
+    public function likesOfPost(Post $post): LengthAwarePaginator
+    {
+        return $post->reacted_users()->where(['react' => Reaction::LIKE])->paginate(15);
+    }
+
+    public function disLikesOfPost(Post $post): LengthAwarePaginator
+    {
+        return $post->reacted_users()->where(['react' => Reaction::DISLIKE])->paginate(15);
     }
 }
