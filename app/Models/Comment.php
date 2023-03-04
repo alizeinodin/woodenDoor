@@ -13,6 +13,12 @@ class Comment extends Model
 
     protected $table = 'comments';
 
+    protected $fillable = [
+        'content',
+        'status',
+        'post_id'
+    ];
+
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
