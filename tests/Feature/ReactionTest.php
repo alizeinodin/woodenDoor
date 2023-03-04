@@ -134,6 +134,10 @@ class ReactionTest extends TestCase
             'react' => Reaction::LIKE,
         ];
 
+        $post = Post::find($post->id);
+        $likes = $post->likes;
+        $dislikes = $post->dislikes;
+
         $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
         $response->assertCreated();
 
@@ -143,6 +147,7 @@ class ReactionTest extends TestCase
         ])->first();
 
         $this->assertEquals(Reaction::LIKE, $reaction->react);
+        $this->assertEquals($likes + 1, $post->likes);
 
         $request = [
             'post_id' => $post->id,
@@ -158,5 +163,8 @@ class ReactionTest extends TestCase
         ])->first();
 
         $this->assertEquals(Reaction::DISLIKE, $reaction->react);
+        $this->assertEquals($likes, $post->likes);
+        $this->assertEquals($dislikes + 1, $post->dislikes);
+
     }
 }
