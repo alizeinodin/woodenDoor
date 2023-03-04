@@ -89,6 +89,9 @@ class ReactionTest extends TestCase
             'react' => Reaction::DISLIKE,
         ];
 
+        $post = Post::find($post->id);
+        $dislikes = $post->dislikes;
+
         $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
         $response->assertCreated();
 
@@ -97,7 +100,10 @@ class ReactionTest extends TestCase
             'post_id' => $post->id,
         ])->first();
 
+        $post = Post::find($post->id);
+
         $this->assertEquals(Reaction::DISLIKE, $reaction->react);
+        $this->assertEquals($dislikes + 1, $post->dislikes);
     }
 
     public function test_disliking_a_post_that_has_already_been_liked()
