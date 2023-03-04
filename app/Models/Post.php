@@ -26,6 +26,11 @@ class Post extends Model
         'index_image',
     ];
 
+    protected $appends = [
+        'likes',
+        'dislikes',
+    ];
+
     public function post_category(): BelongsTo
     {
         return $this->belongsTo(PostCategory::class, 'category_id', 'id');
@@ -51,14 +56,14 @@ class Post extends Model
         return $this->belongsToMany(ReactionPost::class, 'reaction_posts');
     }
 
-    public function getTotalLikesAttributes(): int
+    public function getLikesAttribute(): int
     {
         return $this->hasMany(ReactionPost::class)
             ->where(['react' => Reaction::LIKE])
             ->count();
     }
 
-    public function getTotalDislikesAttributes(): int
+    public function getDislikesAttribute(): int
     {
         return $this->hasMany(ReactionPost::class)
             ->where(['react' => Reaction::DISLIKE])
