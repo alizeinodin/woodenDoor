@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ReactionTest extends TestCase
@@ -15,5 +17,14 @@ class ReactionTest extends TestCase
     {
         $response = $this->getJson(route("api.$this->route_name.index"));
         $response->assertStatus(401);
+    }
+
+    public function test_get_all_reactions()
+    {
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $response = $this->getJson(route("api.$this->route_name.index"));
+        $response->assertOk();
     }
 }
