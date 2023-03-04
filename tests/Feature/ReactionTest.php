@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Enum\Reaction;
 use App\Models\Author;
 use App\Models\Post;
+use App\Models\ReactionPost;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -50,10 +52,17 @@ class ReactionTest extends TestCase
 
         $request = [
             'post_id' => $post->id,
-            'react' => 'like',
+            'react' => Reaction::LIKE,
         ];
 
         $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
         $response->assertCreated();
+
+        $reaction = ReactionPost::where([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ])->first();
+
+        $this->assertEquals(Reaction::LIKE, $reaction->react);
     }
 }
