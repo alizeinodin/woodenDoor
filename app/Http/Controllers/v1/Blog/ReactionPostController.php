@@ -49,7 +49,7 @@ class ReactionPostController extends Controller
         $reaction = ReactionPost::where([
             'user_id' => $request->user()->id,
             'post_id' => $cleanData['post_id'],
-        ])->latest('id')->first();
+        ])->first();
 
         if ($reaction->deleteOrFail() === false) {
             $response = [
