@@ -10,9 +10,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
             Route::prefix('/comments')->group(function () {
 
-                Route::post('/{post}', 'store')
-                    ->name('store');
-
                 Route::get('{post}', 'get_comments')
                     ->name('comments');
 
@@ -29,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->only([
             'index',
             'show',
+            'store',
             'update',
             'destroy'
         ]);
