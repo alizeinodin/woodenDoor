@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\v1\CommentController;
+use App\Http\Controllers\v1\Blog\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {

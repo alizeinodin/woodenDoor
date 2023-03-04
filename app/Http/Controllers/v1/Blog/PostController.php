@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\v1\Post;
+namespace App\Http\Controllers\v1\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;

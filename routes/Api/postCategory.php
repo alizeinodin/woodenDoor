@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\v1\Post\PostCategoryController;
+use App\Http\Controllers\v1\Blog\PostCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
