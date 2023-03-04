@@ -38,4 +38,22 @@ class ReactionPostController extends Controller
 
         return response($response, ResponseHttp::HTTP_CREATED);
     }
+
+    public function destroy(ReactionPost $reaction): Response|Application|ResponseFactory
+    {
+
+        if ($reaction->deleteOrFail() === false) {
+            $response = [
+                'message' => "Couldn't delete the reaction"
+            ];
+
+            return response($response, ResponseHttp::HTTP_BAD_REQUEST);
+        }
+
+        $response = [
+            'message' => 'Your reaction deleted'
+        ];
+
+        return response($response, ResponseHttp::HTTP_NO_CONTENT);
+    }
 }
