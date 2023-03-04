@@ -48,15 +48,15 @@ class CommentController extends Controller
      * @param Post $post
      * @return Response|Application|ResponseFactory
      */
-    public function store(StoreRequest $request, Post $post): Response|Application|ResponseFactory
+    public function store(StoreRequest $request): Response|Application|ResponseFactory
     {
         $cleanData = $request->validated();
 
         $comment = new Comment();
 
         $comment->content = $cleanData['content'];
-        $comment->comment_id = $cleanData['comment_id'];
-        $comment->post_id = $post->id;
+        $comment->comment_id = $cleanData['comment_id'] ?? null;
+        $comment->post_id = $cleanData['post_id'];
 
         $request->user()->comments()->save($comment);
 
