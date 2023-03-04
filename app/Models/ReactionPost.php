@@ -14,6 +14,8 @@ class ReactionPost extends Model
 
     protected $fillable = [
         'react',
+        'post_id',
+        'user_id',
     ];
 
     protected $casts = [
