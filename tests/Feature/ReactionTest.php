@@ -65,4 +65,38 @@ class ReactionTest extends TestCase
 
         $this->assertEquals(Reaction::LIKE, $reaction->react);
     }
+
+    public function test_dislike_post()
+    {
+
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $request = [
+            'post_id' => $post->id,
+            'react' => Reaction::DISLIKE,
+        ];
+
+        $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
+        $response->assertCreated();
+
+        $reaction = ReactionPost::where([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ])->first();
+
+        $this->assertEquals(Reaction::DISLIKE, $reaction->react);
+    }
 }
