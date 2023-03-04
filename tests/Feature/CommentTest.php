@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Author;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -50,8 +51,6 @@ class CommentTest extends TestCase
         $author->posts()->save($post);
 
         $request = [
-            'title' => $this->faker()->name,
-            'description' => $this->faker()->name,
             'content' => $this->faker()->text,
             'post_id' => $post->id,
         ];
