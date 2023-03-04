@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1\Blog;
 
 use App\Enum\Reaction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReactionPost\DeleteReactRequest;
 use App\Http\Requests\ReactionPost\StoreRequest;
 use App\Models\ReactionPost;
 use Illuminate\Contracts\Foundation\Application;
@@ -18,7 +19,7 @@ class ReactionPostController extends Controller
         return ReactionPost::paginate(15);
     }
 
-    public function store(StoreRequest $request): Response|Application|ResponseFactory
+    public function react(StoreRequest $request): Response|Application|ResponseFactory
     {
         $cleanData = $request->validated();
 
@@ -39,8 +40,14 @@ class ReactionPostController extends Controller
         return response($response, ResponseHttp::HTTP_CREATED);
     }
 
-    public function destroy(ReactionPost $reaction): Response|Application|ResponseFactory
+    public function delete_react(DeleteReactRequest $request): Response|Application|ResponseFactory
     {
+        $cleanData = $request->validated();
+
+        $reaction = ReactionPost::where([
+            'user_id' => $request->user()->id,
+            'post_id' => $cleanData['post_id'],
+        ])->latest('id')->first();
 
         if ($reaction->deleteOrFail() === false) {
             $response = [
