@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         return [
             'post_id' => 'numeric|exists:posts,id',
             'comment_id' => 'numeric|exists:comments,id',
-            'test' => 'string',
+            'content' => 'string',
             'status' => 'in:0,1,2'
         ];
     }
