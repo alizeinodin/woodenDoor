@@ -107,7 +107,6 @@ class CommentTest extends TestCase
 
         $author->posts()->save($post);
 
-
         $comment = new Comment();
 
         $comment->content = $this->faker->text;
@@ -127,5 +126,35 @@ class CommentTest extends TestCase
 
         $comment = Comment::find($comment->id);
         $this->assertEquals($content, $comment->content);
+    }
+
+    public function test_delete_comment()
+    {
+
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $comment = new Comment();
+
+        $comment->content = $this->faker->text;
+        $comment->post_id = $post->id;
+
+        $user->comments()->save($comment);
+
+        $response = $this->deleteJson(route("api.$this->route_name.destroy", ['comment' => $comment]));
+        $response->assertStatus(204);
     }
 }
