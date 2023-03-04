@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\Reaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,5 +49,19 @@ class Post extends Model
     public function reacted_users(): BelongsToMany
     {
         return $this->belongsToMany(ReactionPost::class, 'reaction_posts');
+    }
+
+    public function getTotalLikesAttributes(): int
+    {
+        return $this->hasMany(ReactionPost::class)
+            ->where(['react' => Reaction::LIKE])
+            ->count();
+    }
+
+    public function getTotalDislikesAttributes(): int
+    {
+        return $this->hasMany(ReactionPost::class)
+            ->where(['react' => Reaction::DISLIKE])
+            ->count();
     }
 }
