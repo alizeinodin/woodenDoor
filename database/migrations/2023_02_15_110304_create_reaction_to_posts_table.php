@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,10 +12,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('like_posts', function (Blueprint $table) {
+        Schema::create('reaction', function (Blueprint $table) {
             $table->comment('');
-            $table->integer('user_id');
-            $table->integer('post_id')->index('FK_LPost');
+            $table->string('react');
+            $table->integer('user_id')->index('FK_RUser');
+            $table->integer('post_id')->index('FK_RPost');
             $table->dateTime('time')->useCurrent();
 
             $table->primary(['user_id', 'post_id']);
