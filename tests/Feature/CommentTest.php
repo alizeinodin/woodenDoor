@@ -61,6 +61,54 @@ class CommentTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_get_children_of_comment()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $comment = new Comment();
+
+        $comment->content = $this->faker->text;
+        $comment->post_id = $post->id;
+        $comment->user_id = $user->id;
+
+        $comment->save();
+
+        $comment_one = new Comment();
+
+        $comment_one->content = $this->faker->text;
+        $comment_one->post_id = $post->id;
+        $comment_one->user_id = $user->id;
+        $comment_one->comment_id = $comment->id;
+
+        $comment_one->save();
+
+        $comment_two = new Comment();
+
+        $comment_two->content = $this->faker->text;
+        $comment_two->post_id = $post->id;
+        $comment_two->user_id = $user->id;
+        $comment_two->comment_id = $comment_one->id;
+
+        $comment_two->save();
+
+        $response = $this->getJson(route("api.$this->route_name.comments", ['post' => $post]));
+
+        $response->assertOk();
+    }
+
     public function test_store_comment()
     {
         $user = User::factory()->create();
