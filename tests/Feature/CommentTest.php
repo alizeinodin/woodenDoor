@@ -88,4 +88,44 @@ class CommentTest extends TestCase
         $response = $this->getJson(route("api.$this->route_name.show", ['comment' => $comment->id]));
         $response->assertOk();
     }
+
+    public function test_update_comment()
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+
+        $comment = new Comment();
+
+        $comment->content = $this->faker->text;
+        $comment->post_id = $post->id;
+
+        $user->comments()->save($comment);
+
+        $content = $this->faker()->text;
+
+        $request = [
+            'content' => $content,
+            'status' => 2,
+        ];
+
+        $response = $this->patchJson(route("api.$this->route_name.update", ['comment' => $comment]), $request);
+        $response->assertOk();
+
+        $comment = Comment::find($comment->id);
+        $this->assertEquals($content, $comment->content);
+    }
 }
