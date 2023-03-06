@@ -33,4 +33,9 @@ class StorePostController extends Controller
 
         return response($response, ResponseHttp::HTTP_OK);
     }
+
+    public function getStorePosts(Request $request)
+    {
+        return $request->user()->storePosts()->paginate(15);
+    }
 }
