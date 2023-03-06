@@ -53,7 +53,7 @@ class Post extends Model
      */
     public function reacted_users(): BelongsToMany
     {
-        return $this->belongsToMany(ReactionPost::class, 'reaction_posts');
+        return $this->belongsToMany(User::class, 'reaction_posts', 'user_id');
     }
 
     public function getLikesAttribute(): int
