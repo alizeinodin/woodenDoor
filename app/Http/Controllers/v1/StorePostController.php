@@ -22,4 +22,15 @@ class StorePostController extends Controller
 
         return response($response, ResponseHttp::HTTP_OK);
     }
+
+    public function unStorePost(Request $request, Post $post): Response|Application|ResponseFactory
+    {
+        $post->usersStored()->attach($request->user);
+
+        $response = [
+            'message' => 'The post deleted from your account',
+        ];
+
+        return response($response, ResponseHttp::HTTP_OK);
+    }
 }
