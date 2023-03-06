@@ -14,6 +14,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
                 Route::post('/unStore/{post}', 'unStorePost')
                     ->name('unStore');
+
+                Route::post('/user', 'getStorePosts')
+                    ->name('getPosts');
+
+                Route::post('/post', 'getUsersStored')
+                    ->name('getUsers');
             });;
         });
     });
