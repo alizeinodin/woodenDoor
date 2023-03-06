@@ -69,4 +69,9 @@ class Post extends Model
             ->where(['react' => Reaction::DISLIKE])
             ->count();
     }
+
+    public function usersStored(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'store_posts');
+    }
 }

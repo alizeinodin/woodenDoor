@@ -103,4 +103,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(ReactionPost::class, 'reaction_posts');
     }
+
+    public function storePosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'store_posts');
+    }
 }
