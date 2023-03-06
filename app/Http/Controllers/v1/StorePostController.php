@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,5 +38,10 @@ class StorePostController extends Controller
     public function getStorePosts(Request $request)
     {
         return $request->user()->storePosts()->paginate(15);
+    }
+
+    public function getUsersStored(Post $post): LengthAwarePaginator
+    {
+        return $post->usersStored()->paginate(15);
     }
 }
