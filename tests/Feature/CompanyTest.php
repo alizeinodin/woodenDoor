@@ -141,17 +141,19 @@ class CompanyTest extends TestCase
 
         Sanctum::actingAs($user);
 
+        $username = $this->faker->userName;
+
         $request = [
             'persian_name' => 'farsi',
             'english_name' => 'english',
-            'nick_name' => 'google',
+            'nick_name' => $username,
         ];
 
         $response = $this->patchJson(route('api.company.update', ['company' => $company]), $request);
         $response->assertOk();
 
         $company = Company::find($company->id);
-        $this->assertEquals('google', $company->nick_name);
+        $this->assertEquals($username, $company->nick_name);
     }
 
     public function test_delete_company()

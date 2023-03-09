@@ -72,15 +72,17 @@ class JobCategoryTest extends TestCase
         $jobCategory->name = $this->faker->name;
         $jobCategory->save();
 
+        $username = $this->faker->userName;
+
         $request = [
-            'name' => 'title2',
+            'name' => $username,
         ];
 
         $response = $this->patchJson(route("api.$this->route_name.update", ['job_category' => $jobCategory]), $request);
         $response->assertOk();
 
         $jobCategory = JobCategory::find($jobCategory->id);
-        $this->assertEquals('title2', $jobCategory->name);
+        $this->assertEquals($username, $jobCategory->name);
     }
 
     public function test_delete_job_category()
