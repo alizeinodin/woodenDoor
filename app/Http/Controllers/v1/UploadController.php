@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class UploadController extends Controller
 {
-    public const IMAGE_DIR = 'images';
+    public const IMAGE_DIR = 'public/images';
 
     public function storeImage(UploadedFile $file): bool|string
     {
