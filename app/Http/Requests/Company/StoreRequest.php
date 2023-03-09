@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
         return [
             'persian_name' => 'required|string|max:50',
             'english_name' => 'required|string|max:50',
-            'file' => 'image|mimes:jpeg,jpg,png,svg|max:1000',
+            'file.*' => 'image|mimes:jpeg,jpg,png,svg|max:1000',
             'tel' => 'numeric',
             'address' => 'string',
             'website' => 'string',
