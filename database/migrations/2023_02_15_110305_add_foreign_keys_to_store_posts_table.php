@@ -13,7 +13,6 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('store_posts', function (Blueprint $table) {
-            $table->id();
             $table->foreign(['user_id'], 'FK_SUser')->references(['id'])->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign(['post_id'], 'FK_SPost')->references(['id'])->on('posts')->onUpdate('CASCADE')->onDelete('CASCADE');
         });

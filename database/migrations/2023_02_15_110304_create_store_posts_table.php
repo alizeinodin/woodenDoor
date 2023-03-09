@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,12 +14,13 @@ return new class extends Migration
     {
         Schema::create('store_posts', function (Blueprint $table) {
             $table->comment('');
+            $table->id();
             $table->integer('user_id');
             $table->integer('post_id')->index('FK_SPost');
             $table->timestamp('time')->useCurrent();
             $table->boolean('status')->default(true)->comment('#false : deleted | #true : available');
 
-            $table->primary(['user_id', 'post_id']);
+//            $table->primary(['user_id', 'post_id']);
         });
     }
 
