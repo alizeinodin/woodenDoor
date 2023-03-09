@@ -13,6 +13,7 @@ class PostCategory extends Model
     protected $table = 'categories';
 
     protected $fillable = [
+        'id',
         'title',
         'description',
         'link',
