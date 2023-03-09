@@ -44,8 +44,11 @@ class CompanyController extends Controller
     {
         $cleanData = $request->validated();
 
+        dd($request->file('file'));
+
         $cleanData['file'] = $request->input('file') !== null ?
-            (new UploadController())->storeImage($cleanData['file']) : null;
+            (new UploadController())->storeImage($request['file']) : null;
+
 
         $this->add_company($cleanData, $request->user());
 
