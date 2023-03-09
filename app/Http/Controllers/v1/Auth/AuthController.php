@@ -69,7 +69,7 @@ class AuthController extends Controller
 
         // create author for user
         $author = new Author();
-        $author->user()->associate($user);
+        $user->author()->save($author);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
