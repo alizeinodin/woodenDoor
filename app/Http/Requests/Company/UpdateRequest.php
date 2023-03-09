@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
             'persian_name' => 'string|max:50',
             'english_name' => 'string|max:50',
             'logo_path' => 'string',
-            'tel' => 'phone',
+            'tel' => 'numeric',
             'address' => 'string',
             'website' => 'string',
             'number_of_staff' => 'in:0,1,2,3,4,5',
