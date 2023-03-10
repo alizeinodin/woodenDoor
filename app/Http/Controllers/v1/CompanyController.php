@@ -96,11 +96,6 @@ class CompanyController extends Controller
             throw ValidationException::withMessages((array)$validator->errors());
         }
 
-        if ($request->hasFile('file')) {
-            $request['file'] = $request->file('file') !== null ?
-                (new UploadController())->storeImage($request->file('file')) : null;
-        }
-
         $company->update($request->all());
 
         $response = [
