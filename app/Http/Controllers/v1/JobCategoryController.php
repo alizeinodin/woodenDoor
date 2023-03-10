@@ -11,6 +11,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
@@ -41,7 +42,8 @@ class JobCategoryController extends Controller
 
         $jobCategory = new JobCategory();
 
-        $jobCategory->name = $cleanData['name'];
+        $jobCategory->title = $cleanData['title'];
+        $jobCategory->link = Str::slug($cleanData['title']);
 
         $jobCategory->save();
 
