@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('post_categories', function (Blueprint $table) {
             $table->comment('');
             $table->integer('id', true);
             $table->string('title', 50);
