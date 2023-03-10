@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
         return [
             'persian_name' => 'string|max:50',
             'english_name' => 'string|max:50',
+            'file.*' => 'image|mimes:jpeg,jpg,png,svg|max:1000',
             'logo_path' => 'string',
             'tel' => 'numeric',
             'address' => 'string',
