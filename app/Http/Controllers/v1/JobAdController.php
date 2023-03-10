@@ -50,6 +50,7 @@ class JobAdController extends Controller
         $jobAd->province = $cleanData['province'];
         $jobAd->type_of_cooperation = $cleanData['type_of_cooperation'];
         $jobAd->min_salary = $cleanData['min_salary'] ?? null;
+        $jobAd->max_salary = $cleanData['max_salary'] ?? null;
         $jobAd->description = $cleanData['description'];
         $jobAd->work_experience = $cleanData['work_experience'] ?? null;
         $jobAd->min_education_degree = $cleanData['min_education_degree'] ?? null;
