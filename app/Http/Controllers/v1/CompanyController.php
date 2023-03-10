@@ -44,8 +44,8 @@ class CompanyController extends Controller
     {
         $cleanData = $request->validated();
 
-        $cleanData['file'] = $request->input('file') !== null ?
-            (new UploadController())->storeImage($request['file']) : null;
+        $cleanData['file'] = $request->file('file') !== null ?
+            (new UploadController())->storeImage($request->file('file')) : null;
 
 
         $this->add_company($cleanData, $request->user());
@@ -97,8 +97,8 @@ class CompanyController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $request['file'] = $request->input('file') !== null ?
-                (new UploadController())->storeImage($request['file']) : null;
+            $request['file'] = $request->file('file') !== null ?
+                (new UploadController())->storeImage($request->file('file')) : null;
         }
 
         $company->update($request->all());
