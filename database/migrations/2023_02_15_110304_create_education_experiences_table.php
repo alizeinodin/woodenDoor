@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->boolean('study_status')->comment('#false : Graduated | #true : Studying');
             $table->string('image', 100)->nullable();
             $table->text('description')->nullable();
+            $table->timestamps();
         });
 
         /*
