@@ -79,7 +79,6 @@ class JobAdTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
@@ -110,7 +109,6 @@ class JobAdTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
@@ -146,7 +144,6 @@ class JobAdTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
@@ -189,7 +186,6 @@ class JobAdTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
