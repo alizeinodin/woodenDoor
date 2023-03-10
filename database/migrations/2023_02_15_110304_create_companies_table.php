@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->text('about_company')->nullable();
             $table->string('nick_name', 50)->unique('nick_name');
             $table->boolean('isValid')->default(false);
+            $table->integer('score')->default(0);
             $table->integer('employer_id')->index('FK_EmployerID');
             $table->integer('job_category_id')->index('FK_JobCategoryCompany')->default(1);
             $table->timestamps();
