@@ -27,6 +27,7 @@ class UpdateRequest extends FormRequest
             'province' => 'string',
             'type_of_cooperation' => 'in:0,1,2,3',
             'min_salary' => 'numeric',
+            'max_salary' => 'numeric',
             'description' => 'string',
             'work_experience' => 'in:0,1,2,3,4,5',
             'min_education_degree' => 'in:0,1,2,3,4,5',
