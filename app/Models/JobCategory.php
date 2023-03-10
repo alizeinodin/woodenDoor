@@ -13,7 +13,8 @@ class JobCategory extends Model
     protected $table = 'job_categories';
 
     protected $fillable = [
-        'name'
+        'title',
+        'link',
     ];
 
     public function jobAds(): HasMany
