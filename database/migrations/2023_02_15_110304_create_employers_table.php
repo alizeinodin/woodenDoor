@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('employers', function (Blueprint $table) {
             $table->comment('');
             $table->integer('user_id')->primary();
-            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }
