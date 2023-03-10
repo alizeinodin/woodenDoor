@@ -18,6 +18,7 @@ class JobAd extends Model
         'type_of_cooperation',
         'company_id',
         'min_salary',
+        'max_salary',
         'description',
         'work_experience',
         'min_education_degree',
