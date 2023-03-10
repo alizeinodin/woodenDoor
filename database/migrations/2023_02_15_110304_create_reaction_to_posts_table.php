@@ -14,12 +14,13 @@ return new class extends Migration {
     {
         Schema::create('reaction_posts', function (Blueprint $table) {
             $table->comment('');
+            $table->id();
             $table->string('react');
             $table->integer('user_id')->index('FK_RUser');
             $table->integer('post_id')->index('FK_RPost');
             $table->timestamps();
 
-            $table->primary(['user_id', 'post_id']);
+            $table->unique(['user_id', 'post_id']);
         });
     }
 
