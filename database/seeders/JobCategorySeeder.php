@@ -13,41 +13,41 @@ class JobCategorySeeder extends Seeder
     public function run(): void
     {
         JobCategory::create([
-            'name' => 'پیشفرض',
+            'title' => 'پیشفرض',
         ]);
 
         JobCategory::create([
-            'name' => 'دیجیتال مارکتینگ و سئو',
+            'title' => 'دیجیتال مارکتینگ و سئو',
         ]);
 
         JobCategory::create([
-            'name' => 'توسعه نرم افزار و برنامه نویسی',
+            'title' => 'توسعه نرم افزار و برنامه نویسی',
         ]);
 
         JobCategory::create([
-            'name' => 'تست نرم افزار',
+            'title' => 'تست نرم افزار',
         ]);
 
         JobCategory::create([
-            'name' => 'شبکه و دواپس',
+            'title' => 'شبکه و دواپس',
         ]);
         JobCategory::create([
-            'name' => 'علوم داده و هوش مصنوعی',
+            'title' => 'علوم داده و هوش مصنوعی',
         ]);
         JobCategory::create([
-            'name' => 'طراحی بازی',
+            'title' => 'طراحی بازی',
         ]);
         JobCategory::create([
-            'name' => 'گرافیک',
+            'title' => 'گرافیک',
         ]);
         JobCategory::create([
-            'name' => 'مدیریت بیمه',
+            'title' => 'مدیریت بیمه',
         ]);
         JobCategory::create([
-            'name' => 'فروشگاه و رستوران',
+            'title' => 'فروشگاه و رستوران',
         ]);
         JobCategory::create([
-            'name' => 'ترجمه و تولید محتوا',
+            'title' => 'ترجمه و تولید محتوا',
         ]);
     }
 }
