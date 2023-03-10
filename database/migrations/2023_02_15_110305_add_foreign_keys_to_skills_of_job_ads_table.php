@@ -13,8 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('skills_of_job_ads', function (Blueprint $table) {
-            $table->foreign(['job_ads_property_id'], 'FK_JobPropertyTwo')->references(['id'])->on('job_ads_properties')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign(['job_ads_id'], 'FK_JobPropertyOne')->references(['id'])->on('job_ads')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['skill_id'], 'FK_JobPropertyTwo')->references(['id'])->on('job_ads_properties')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['job_ad_id'], 'FK_JobPropertyOne')->references(['id'])->on('job_ads')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
