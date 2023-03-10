@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReactionPost extends Model
 {
     protected $table = 'reaction_posts';
+    protected $primaryKey = ['user_id', 'post_id'];
 
     use HasFactory;
 
