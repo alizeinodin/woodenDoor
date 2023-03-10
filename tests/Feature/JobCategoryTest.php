@@ -40,7 +40,7 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $request = [
-            'name' => $this->faker()->name,
+            'title' => $this->faker()->name,
         ];
 
         $response = $this->postJson(route("api.$this->route_name.store"), $request);
@@ -54,7 +54,8 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $jobCategory = new JobCategory();
-        $jobCategory->name = $this->faker->name;
+        $jobCategory->title = $this->faker->name;
+        $jobCategory->link = $this->faker->slug;
         $jobCategory->save();
 
         $response = $this->getJson(route("api.$this->route_name.show", ['job_category' => $jobCategory->id]));
@@ -69,20 +70,21 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $jobCategory = new JobCategory();
-        $jobCategory->name = $this->faker->name;
+        $jobCategory->title = $this->faker->name;
+        $jobCategory->link = $this->faker->slug;
         $jobCategory->save();
 
         $username = $this->faker->userName;
 
         $request = [
-            'name' => $username,
+            'title' => $username,
         ];
 
         $response = $this->patchJson(route("api.$this->route_name.update", ['job_category' => $jobCategory]), $request);
         $response->assertOk();
 
         $jobCategory = JobCategory::find($jobCategory->id);
-        $this->assertEquals($username, $jobCategory->name);
+        $this->assertEquals($username, $jobCategory->title);
     }
 
     public function test_delete_job_category()
@@ -92,7 +94,8 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $jobCategory = new JobCategory();
-        $jobCategory->name = $this->faker->name;
+        $jobCategory->title = $this->faker->name;
+        $jobCategory->link = $this->faker->slug;
         $jobCategory->save();
 
         $response = $this->deleteJson(route("api.$this->route_name.destroy", ['job_category' => $jobCategory]));
@@ -109,12 +112,12 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $jobCategory = new JobCategory();
-        $jobCategory->name = $this->faker->name;
+        $jobCategory->title = $this->faker->name;
+        $jobCategory->link = $this->faker->slug;
         $jobCategory->save();
 
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
@@ -152,12 +155,12 @@ class JobCategoryTest extends TestCase
         Sanctum::actingAs($user);
 
         $jobCategory = new JobCategory();
-        $jobCategory->name = $this->faker->name;
+        $jobCategory->title = $this->faker->name;
+        $jobCategory->link = $this->faker->slug;
         $jobCategory->save();
 
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $employer->user()->associate($user);
         $employer->save();
