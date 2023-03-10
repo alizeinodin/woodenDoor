@@ -166,4 +166,50 @@ class ReactionTest extends TestCase
         $this->assertEquals($likes, $post->likes);
         $this->assertEquals($dislikes + 1, $post->dislikes);
     }
+
+    public function test_delete_reaction()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $author = new Author();
+        $user->author()->save($author);
+
+        $post = new Post();
+
+        $post->title = $this->faker()->name;
+        $post->description = $this->faker()->name;
+        $post->content = $this->faker()->text;
+        $post->uri = $this->faker()->url;
+
+        $author->posts()->save($post);
+
+        $request = [
+            'post_id' => $post->id,
+            'react' => Reaction::LIKE,
+        ];
+
+        $post = Post::find($post->id);
+        $likes = $post->likes;
+
+        $response = $this->postJson(route("api.$this->route_name.likeOrDislike"), $request);
+        $response->assertCreated();
+
+        $reaction = ReactionPost::where([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ])->first();
+
+        $post = Post::find($post->id);
+
+        $request = [
+            'post_id' => $post->id,
+        ];
+
+        $this->assertEquals(Reaction::LIKE, $reaction->react);
+        $this->assertEquals($likes + 1, $post->likes);
+
+        $response = $this->postJson(route("api.$this->route_name.delete"), $request);
+        $response->assertStatus(204);
+    }
 }
