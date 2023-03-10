@@ -44,8 +44,6 @@ class CompanyController extends Controller
     {
         $cleanData = $request->validated();
 
-        dd($request->file('file'));
-
         $cleanData['file'] = $request->input('file') !== null ?
             (new UploadController())->storeImage($request['file']) : null;
 
@@ -96,6 +94,11 @@ class CompanyController extends Controller
 
         if ($validator->fails()) {
             throw ValidationException::withMessages((array)$validator->errors());
+        }
+
+        if ($request->hasFile('file')) {
+            $request['file'] = $request->input('file') !== null ?
+                (new UploadController())->storeImage($request['file']) : null;
         }
 
         $company->update($request->all());
