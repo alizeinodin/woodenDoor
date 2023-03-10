@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->boolean('comment_status')->default(true)->comment('#true: open comment | #false: close comment');
             $table->integer('score')->default(0);
             $table->string('uri', 150)->unique();
-            $table->integer('index_image')->nullable()->index('IndexImage')->comment('this column refer to media');
+            $table->string('index_image', 200)->nullable()->comment('this column is path of index image of post');
             $table->timestamps();
             $table->integer('author_id')->index('FK_PAuthorId');
         });
