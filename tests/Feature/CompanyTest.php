@@ -143,10 +143,13 @@ class CompanyTest extends TestCase
 
         $username = $this->faker->userName;
 
+        $file = UploadedFile::fake();
+
         $request = [
             'persian_name' => 'farsi',
             'english_name' => 'english',
             'nick_name' => $username,
+            'file' => $file,
         ];
 
         $response = $this->patchJson(route('api.company.update', ['company' => $company]), $request);
