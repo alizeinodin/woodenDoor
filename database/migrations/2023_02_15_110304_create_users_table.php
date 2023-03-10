@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('username', 50)->unique('username');
             $table->string('email', 50)->unique('email');
             $table->string('password', 100);
-            $table->string('phone', 12)->nullable()->unique('phone');
+            $table->string('phone', 20)->nullable()->unique('phone');
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();
             $table->boolean('sex')->comment('#true: male | #false: female');
