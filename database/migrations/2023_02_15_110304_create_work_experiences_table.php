@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -24,6 +23,7 @@ return new class extends Migration
             $table->boolean('working_status')->comment('#false : unemployed | #true : in work');
             $table->text('description')->nullable();
             $table->string('company_name', 50);
+            $table->timestamps();
         });
 
         /*
