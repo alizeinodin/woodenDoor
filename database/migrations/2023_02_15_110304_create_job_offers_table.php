@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('resume', 100);
             $table->enum('status', ['0', '1', '2'])->default('0')->comment('#0 : pending | #1 : rejected, | #2 : accepted');
-
+            $table->timestamps();
         });
 
         /*
