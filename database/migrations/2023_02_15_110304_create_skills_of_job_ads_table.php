@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->comment('');
             $table->integer('skill_id');
             $table->integer('job_ad_id')->index('FK_JobPropertyTwo');
-            $table->primary(['job_ads_id', 'job_ads_property_id']);
+            $table->primary(['skill_id', 'job_ad_id']);
         });
     }
 
