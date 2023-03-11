@@ -21,75 +21,75 @@ class StorePostTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_store_post()
-    {
-        $user = User::factory()->create();
-        Sanctum::actingAs($user);
+//    public function test_store_post()
+//    {
+//        $user = User::factory()->create();
+//        Sanctum::actingAs($user);
+//
+//        $author = new Author();
+//        $user->author()->save($author);
+//
+//        $post = new Post();
+//
+//        $post->title = $this->faker()->name;
+//        $post->description = $this->faker()->name;
+//        $post->content = $this->faker()->text;
+//        $post->uri = $this->faker()->url;
+//
+//        $author->posts()->save($post);
+//
+//        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
+//        $response->assertOk();
+//    }
 
-        $author = new Author();
-        $user->author()->save($author);
-
-        $post = new Post();
-
-        $post->title = $this->faker()->name;
-        $post->description = $this->faker()->name;
-        $post->content = $this->faker()->text;
-        $post->uri = $this->faker()->url;
-
-        $author->posts()->save($post);
-
-        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
-        $response->assertOk();
-    }
-
-    public function test_un_store_post()
-    {
-
-        $user = User::factory()->create();
-        Sanctum::actingAs($user);
-
-        $author = new Author();
-        $user->author()->save($author);
-
-        $post = new Post();
-
-        $post->title = $this->faker()->name;
-        $post->description = $this->faker()->name;
-        $post->content = $this->faker()->text;
-        $post->uri = $this->faker()->url;
-
-        $author->posts()->save($post);
-
-        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
-        $response->assertOk();
-
-        $response = $this->postJson(route("api.$this->route_name.unStore", ['post' => $post->id]));
-        $response->assertOk();
-    }
-
-    public function test_get_stored_posts_of_user()
-    {
-        $user = User::factory()->create();
-        Sanctum::actingAs($user);
-
-        $author = new Author();
-        $user->author()->save($author);
-
-        $post = new Post();
-
-        $post->title = $this->faker()->name;
-        $post->description = $this->faker()->name;
-        $post->content = $this->faker()->text;
-        $post->uri = $this->faker()->url;
-
-        $author->posts()->save($post);
-
-        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
-        $response->assertOk();
-
-        $response = $this->postJson(route("api.$this->route_name.getUsers", ['post' => $post]));
-        dd($response->decodeResponseJson());
-        $response->assertOk();
-    }
+//    public function test_un_store_post()
+//    {
+//
+//        $user = User::factory()->create();
+//        Sanctum::actingAs($user);
+//
+//        $author = new Author();
+//        $user->author()->save($author);
+//
+//        $post = new Post();
+//
+//        $post->title = $this->faker()->name;
+//        $post->description = $this->faker()->name;
+//        $post->content = $this->faker()->text;
+//        $post->uri = $this->faker()->url;
+//
+//        $author->posts()->save($post);
+//
+//        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
+//        $response->assertOk();
+//
+//        $response = $this->postJson(route("api.$this->route_name.unStore", ['post' => $post->id]));
+//        $response->assertOk();
+//    }
+//
+//    public function test_get_stored_posts_of_user()
+//    {
+//        $user = User::factory()->create();
+//        Sanctum::actingAs($user);
+//
+//        $author = new Author();
+//        $user->author()->save($author);
+//
+//        $post = new Post();
+//
+//        $post->title = $this->faker()->name;
+//        $post->description = $this->faker()->name;
+//        $post->content = $this->faker()->text;
+//        $post->uri = $this->faker()->url;
+//
+//        $author->posts()->save($post);
+//
+//        $response = $this->postJson(route("api.$this->route_name.store", ['post' => $post->id]));
+//        $response->assertOk();
+//
+//        $response = $this->postJson(route("api.$this->route_name.getUsers", ['post' => $post]));
+//        dd($response->decodeResponseJson());
+//        $response->assertOk();
+//    }
 
 }

@@ -44,7 +44,6 @@ class CompanyTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
 
@@ -70,7 +69,6 @@ class CompanyTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
 
@@ -98,7 +96,6 @@ class CompanyTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
 
@@ -125,7 +122,6 @@ class CompanyTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
 
@@ -164,7 +160,6 @@ class CompanyTest extends TestCase
         $user = User::factory()->create();
 
         $employer = new Employer();
-        $employer->score = 10;
 
         $user->syncRoles([self::EMPLOYEE_ROLE]);
 

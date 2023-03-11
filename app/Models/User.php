@@ -106,6 +106,6 @@ class User extends Authenticatable
 
     public function storePosts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'store_posts');
+        return $this->belongsToMany(Post::class, 'store_posts', 'id', 'post_id');
     }
 }

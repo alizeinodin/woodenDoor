@@ -72,6 +72,6 @@ class Post extends Model
 
     public function usersStored(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'store_posts');
+        return $this->belongsToMany(User::class, 'store_posts', 'id', 'user_id', '');
     }
 }

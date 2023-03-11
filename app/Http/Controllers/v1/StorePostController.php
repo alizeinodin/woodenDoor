@@ -15,7 +15,9 @@ class StorePostController extends Controller
 {
     public function storePost(Request $request, Post $post): Response|Application|ResponseFactory
     {
-        $post->usersStored()->attach($request->user);
+        $post->usersStored()->attach([$request->user()->id]);
+
+        dd($post);
 
         $response = [
             'message' => 'The post added to your account',
@@ -26,7 +28,7 @@ class StorePostController extends Controller
 
     public function unStorePost(Request $request, Post $post): Response|Application|ResponseFactory
     {
-        $post->usersStored()->attach($request->user);
+        $post->usersStored()->detach($request->user()->id);
 
         $response = [
             'message' => 'The post deleted from your account',
