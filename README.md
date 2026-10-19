@@ -1,66 +1,335 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="docs/logos/logo.png" alt="WoodenDoor logo" width="280"/>
 </p>
 
-## About Laravel
+<h1 align="center">WoodenDoor</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  <strong>A modern job marketplace API</strong><br/>
+  Connect job seekers with employers — post listings, manage companies, and grow careers.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <a href="https://cafejoon.ir/jobvision/"><img src="https://img.shields.io/badge/demo-live-22c55e?style=flat-square" alt="Live Demo"/></a>
+  <img src="https://img.shields.io/badge/Laravel-10.x-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel"/>
+  <img src="https://img.shields.io/badge/PHP-8.1%2B-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP"/>
+  <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL"/>
+  <img src="https://img.shields.io/badge/Auth-Laravel%20Sanctum-000000?style=flat-square" alt="Sanctum"/>
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License"/>
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#tech-stack">Tech Stack</a> ·
+  <a href="#getting-started">Getting Started</a> ·
+  <a href="#api-overview">API</a> ·
+  <a href="#testing">Testing</a>
+</p>
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Overview
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**WoodenDoor** is a full-featured recruitment platform backend built with Laravel. It powers a dual-sided marketplace where:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Job seekers** create profiles, browse openings, and apply for roles
+- **Employers** register companies, publish job ads, and reach qualified candidates
+- **Everyone** can engage with a built-in career blog — posts, comments, reactions, and bookmarks
 
-## Laravel Sponsors
+The API is designed for a SPA frontend, secured with token-based authentication and role-based access control.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+> **Live demo:** [cafejoon.ir/jobvision](https://cafejoon.ir/jobvision/)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Features
+
+### Authentication & identity
+- Sign-up / sign-in for **employees** and **employers**
+- Verification-code flow for account confirmation
+- Token authentication via **Laravel Sanctum**
+- Role & permission management with **Spatie Laravel Permission**
+
+### Job marketplace
+- Job ad CRUD with rich filters (location, salary, cooperation type, experience, education)
+- Job categories and company profiles
+- Employer-owned companies with logos and staff metadata
+- Ad lifecycle statuses: waiting → active / failed / needs correction
+
+### Candidate profiles
+- Employee profile (province, salary expectations, job position)
+- Work & education experience records
+- Skills associated with job listings
+
+### Career blog
+- Posts with categories and authors
+- Nested comments
+- Like / dislike reactions
+- Bookmark (store) posts for later
+
+### Platform quality
+- Authorization policies for companies and job ads
+- Feature test suite covering core domains
+- Docker Compose / Sail-ready deployment
+- Rate-limited API (`60 req/min`)
+
+---
+
+## Screenshots
+
+| Homepage | Blog |
+|:---:|:---:|
+| ![Homepage](docs/portfolio/01-homepage.png) | ![Blog](docs/portfolio/02-blog.png) |
+
+| Login | Register |
+|:---:|:---:|
+| ![Login](docs/portfolio/03-login.png) | ![Register](docs/portfolio/04-register.png) |
+
+| Set password | Employer registration |
+|:---:|:---:|
+| ![Set password](docs/portfolio/05-set-password.png) | ![Employer register](docs/portfolio/06-employer-register.png) |
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Framework | [Laravel 10](https://laravel.com) |
+| Language | PHP 8.1+ |
+| Database | MySQL 8 |
+| Auth | [Laravel Sanctum](https://laravel.com/docs/sanctum) |
+| Authorization | [spatie/laravel-permission](https://github.com/spatie/laravel-permission) |
+| HTTP client | Guzzle |
+| Frontend (companion) | React SPA (integrated separately) |
+| Tooling | Vite, PHPUnit, Laravel Pint, Laravel Sail |
+| Containers | Docker Compose |
+
+---
+
+## Architecture
+
+```
+┌─────────────────┐     Sanctum token      ┌──────────────────────────┐
+│  React SPA      │ ─────────────────────► │  Laravel API (/api)      │
+│  (frontend)     │ ◄───────────────────── │  Controllers v1          │
+└─────────────────┘       JSON             │  Models · Policies · RBAC│
+                                           └────────────┬─────────────┘
+                                                        │
+                                                        ▼
+                                                 ┌─────────────┐
+                                                 │   MySQL 8   │
+                                                 └─────────────┘
+```
+
+**Roles**
+
+| Role | Capabilities |
+| --- | --- |
+| `Employee` | Job seeker profile, browse & engage with listings and blog |
+| `Employer` | Manage companies, publish and maintain job ads |
+
+API routes are versioned under `app/Http/Controllers/v1` and modularized in `routes/Api/`.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- PHP **8.1+** with extensions: `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`
+- Composer 2
+- MySQL 8 (or Docker)
+- Node.js 18+ (optional, for asset tooling / frontend integration)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/alizeinodin/woodenDoor.git
+cd woodenDoor
+```
+
+### 2. Install PHP dependencies
+
+```bash
+composer install
+```
+
+### 3. Environment configuration
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Update database credentials in `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=woodendoor
+DB_USERNAME=woodendoor
+DB_PASSWORD=secret
+```
+
+### 4. Migrate & seed
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+Seeders include roles/permissions, job categories, post categories, and sample users.
+
+### 5. Run the application
+
+```bash
+php artisan serve
+```
+
+The API is available at `http://127.0.0.1:8000/api`.
+
+### Docker (optional)
+
+A Compose stack is provided for app + MySQL:
+
+```bash
+docker compose up -d
+```
+
+Ensure the external network referenced in `docker-compose.yml` exists, or adjust it for your environment.
+
+### Frontend integration (optional)
+
+The UI lives in a companion React app. Use the helper script to clone, patch paths, and build into Laravel’s `public/` directory:
+
+```bash
+./scripts/integrate-frontend.sh
+```
+
+---
+
+## API Overview
+
+All endpoints are prefixed with `/api` and (unless noted) require a Sanctum bearer token.
+
+### Auth & verification
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `POST` | `/sign-up` | Register as employee or employer |
+| `POST` | `/sign-in` | Authenticate and receive token |
+| `GET` | `/logout` | Revoke current token |
+| `POST` | `/verification_code/request` | Request verification code |
+| `POST` | `/verification_code/verify` | Verify code |
+
+### Marketplace
+
+| Resource | Endpoints |
+| --- | --- |
+| Companies | `POST /companies/my-companies`, full REST via `/company` |
+| Job ads | `POST /job_ad/my-jobAds`, `POST /job_ad/store/{company}`, REST `/job_ads` |
+| Job categories | `/job_category`, plus companies & ads by category |
+
+### Blog
+
+| Resource | Endpoints |
+| --- | --- |
+| Posts | REST `/post` |
+| Post categories | `/post_category`, `{id}/posts` |
+| Comments | Nested tree: children / parent helpers under `/comments` |
+| Reactions | `/reaction/likeOrDislike`, `/reaction/delete` |
+| Bookmarks | `/store_post/store/{post}`, `/unStore/{post}`, user & post queries |
+
+> Authenticate with: `Authorization: Bearer {token}`
+
+---
+
+## Project Structure
+
+```
+app/
+├── Enum/                  # Domain enums (reactions, verification status)
+├── Http/
+│   ├── Controllers/v1/    # Versioned API controllers
+│   ├── Middleware/
+│   ├── Requests/          # Form request validation
+│   └── Resources/
+├── Models/                # Eloquent models (User, JobAd, Company, Post, …)
+├── Policies/              # Authorization (Company, JobAd)
+└── Providers/
+database/
+├── migrations/
+├── seeders/
+└── factories/
+routes/
+├── Api/                   # Modular API route files
+├── api.php
+└── web.php                # SPA catch-all
+tests/Feature/             # Feature tests per domain
+docs/
+├── logos/
+└── portfolio/             # Product screenshots
+```
+
+---
+
+## Testing
+
+Feature tests cover authentication, companies, job ads, categories, posts, comments, reactions, bookmarks, uploads, and verification codes.
+
+```bash
+php artisan test
+# or
+./vendor/bin/phpunit
+```
+
+Ensure a testing database is configured (see `phpunit.xml` and your `.env.testing` if used).
+
+---
+
+## Configuration tips
+
+| Concern | Recommendation |
+| --- | --- |
+| File uploads | Configure `FILESYSTEM_DISK` and ensure `storage:link` |
+| Mail (verification) | Set `MAIL_*` for real SMTP in production; Mailpit works locally |
+| SPA routing | `routes/web.php` serves the frontend catch-all view |
+| Permissions | Run `RoleAndPermissionSeeder` after migrate |
+
+```bash
+php artisan storage:link
+```
+
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome.
 
-## Code of Conduct
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit with a clear message
+4. Open a pull request against `master`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Please keep changes focused, follow existing code style (Laravel Pint), and add or update tests when changing behavior.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Security
+
+If you discover a security vulnerability, please open a private advisory or contact the maintainer directly rather than filing a public issue.
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+<p align="center">
+  Built with Laravel · Designed for real hiring workflows
+</p>
