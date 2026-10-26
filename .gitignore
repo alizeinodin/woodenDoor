@@ -17,3 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 .phpunit.result.cache
+
+# deploy secrets — never commit
+.env.deploy
+.env.*.local
